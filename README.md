@@ -1,41 +1,29 @@
-NSL Analyzing Magnet NMR Frequency Calculator
-==========================================================
+Analyzing Magnet NMR Utility
+============================
 
-Calculates the NMR frequency for a given isotope with a given charge state at a given energy for the Notre Dame Nuclear Structure Laboratory. Uses the Atomic Mass Tables by Audi, Wapstra, and Thibault (Nuc. Phys. A 729 (2003) 337-676).
+Calculates the NMR frequency for a given isotope with a given charge state at a given energy. Designed for use at the Notre Dame Nuclear Structure Laboratory. Uses the [Atomic Mass Tables](http://ie.lbl.gov/toimass.html) by Audi, Wapstra, and Thibault (Nuc. Phys. A 729 (2003) 337-676). Supports both frequency-from-energy and energy-from-frequency calculations, with the former also allowing for tabular output.
 
-The input method takes the options directly from the command line and incorporates added functionality:
-* can set a user-defined energy step when calculating multiple values, instead of forcing 0.025 MeV steps, and avoids printing extraneous values, and
-* can calculate the energy for a given NMR frequency and charge state These options make for a cleaner end result and improve upon the base program.
+When calculating, at the very least a single isotope, charge state, and energy/frequency is required. These are set using the respective options can can be organized is the following ways:
+```
+  ISO -sq QSTATE -se ENERGY
+  ISO -sq QSTATE -sf FREQUENCY
+  ISO -sq QSTATE -me ENERGY1 ENERGY2 ENERGYSTEP
+  ISO -mq QSTATE1 QSTATE2 -se ENERGY
+  ISO -mq QSTATE1 QSTATE2 -sf FREQUENCY
+  ISO -mq QSTATE1 QSTATE2 -me ENERGY1 ENERGY2 ENERGYSTEP
+```
+
+Options
+-------
+`-a, --accelerator` Prints which accelerator environment is currently selected.
+
+`-c` Changes the environment variables defined in NMRconfig.py. This option can be used in two different ways: restoring the options to their default (FN) with `nmrfreq -c` or setting a new defined (XXconfig.py exits) accelerator with `nmrfreq -c ACCELERATOR`
+
+`-h, --help` Prints the help screen, with options and descriptions of tags.
+
+`-v, --version` Prints version number and date of last update.
 
 
-Calling Options
----------------
-
-Calling the routine has changed. The available potential calls are listed below and accessible through `nmrfreq.py -h` which includes short explanations of the command line tags. In addition, to maintain the same calling procedure, running the program without any options will default to the legacy interface.
-
-#### Informative Options
-
-  `-a, --accelerator`            Prints which accelerator environment is used.
-
-  `-h, --help`            Prints the help screen, with options and descriptions of tags.
-
-  `-v, --version`            Prints version number and date of last update.
-
-#### Environment Options
-
-  -c            Changes the environment variables defined in NMRconfig.py. This option can be used in two different ways: restoring the options to their default (FN) with `nmrfreq -c` or setting a new defined (XXconfig.py exits) accelerator with `nmrfreq -c ACCELERATOR`
-
-#### Calculating Options
-
-For all of the options below, the input must include a charge state definition and either an energy or a frequency definition, in that order. Anything else will return an error. Possible option sets are displayed using `-h` are are expanded below:
-```ISO -sq QSTATE -se ENERGY
-      ISO -sq QSTATE -sf FREQUENCY
-      ISO -sq QSTATE -me ENERGY1 ENERGY2 ENERGYSTEP
-      ISO -mq QSTATE1 QSTATE2 -se ENERGY
-      ISO -mq QSTATE1 QSTATE2 -sf FREQUENCY
-      ISO -mq QSTATE1 QSTATE2 -me ENERGY1 ENERGY2 ENERGYSTEP```
-
-The command line tags ensure that the program interprets the values given correctly and follows the order that the original program used. Each tag is defined below.
 
 `-sq QSTATE`    Defines a single charge state calculation.
 

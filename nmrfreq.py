@@ -7,10 +7,11 @@ versiondate = "2014-08-04"
 # Set Accelerator Environment
 # - modules reloaded to ensure that they are recompiled if they've been changed
 #####
-import NMRconfig
+import data.NMRconfig as NMRconfig
 reload(NMRconfig)
 
-config = __import__("{0}config".format(NMRconfig.ACCELERATOR))
+import importlib
+config = importlib.import_module("data.{0}config".format(NMRconfig.ACCELERATOR))
 reload(config)
 
 #####
@@ -211,7 +212,7 @@ def environment():
 # Checking values of inputs to make sure that we are set for calculations
 #####
 def checkiso():
-  import wapstra
+  import data.wapstra as wapstra
 
   global ISO, Z, MASS
 
