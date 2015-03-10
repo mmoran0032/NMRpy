@@ -15,46 +15,51 @@ When calculating, at the very least a single isotope, charge state, and energy/f
 
 Options
 -------
-`-a, --accelerator` Prints which accelerator environment is currently selected.
+* `-a, --accelerator` Prints which accelerator environment is currently selected.
 
-`-c` Changes the environment variables defined in NMRconfig.py. This option can be used in two different ways: restoring the options to their default (FN) with `nmrfreq -c` or setting a new defined (XXconfig.py exits) accelerator with `nmrfreq -c ACCELERATOR`
+* `-c` Changes the environment variables defined in NMRconfig.py. This option can be used in two different ways: restoring the options to their default (FN) with `nmrfreq -c` or setting a new defined (XXconfig.py exits) accelerator with `nmrfreq -c ACCELERATOR`
 
-`-h, --help` Prints the help screen, with options and descriptions of tags.
+* `-h, --help` Prints the help screen.
 
-`-v, --version` Prints version number and date of last update.
+* `-v, --version` Prints version number and date of last update.
 
+* `-sq QSTATE` Defines a single charge state calculation.
 
+  Sets the parser to only calculate for a single charge state. The routine can determine if it is a legitimate charge state, with the program exiting if the test is failed
 
-`-sq QSTATE`    Defines a single charge state calculation.
+* `-mq Q1 Q2`     Defines a multiple charge state calculation.
 
-                Sets the parser to only calculate for a single charge state. The routine can determine if it is a legitimate charge state, with the program exiting if the test is failed
+  Forces calculation for multiple charge states. The program will calculate frequencies for all charge states between Q1 and Q2, inclusive. No preference is given for defining the range as low-to-high or high-to-low, although output will always be in the low-to-high format.
 
-`-mq Q1 Q2`     Defines a multiple charge state calculation.
+* `-sf FREQ`      Defines a single frequency calculation.
 
-                Forces calculation for multiple charge states. The program will calculate frequencies for all charge states between Q1 and Q2, inclusive. No preference is given for defining the range as low-to-high or high-to-low, although output will always be in the low-to-high format.
+  Using the supplied charge state(s), the program will determine the energy of the particle for the given frequency.
 
-`-sf FREQ`      Defines a single frequency calculation.
+* `-se ENERGY`    Defines a single energy calculation.
 
-                Using the supplied charge state(s), the program will determine the energy of the particle for the given frequency.
+  From the supplied information, the program calculates the NMR frequency at a single energy and displays it on the screen.
 
-`-se ENERGY`    Defines a single energy calculation.
+* `-me E1 E2 DE`  Defines a multiple energy calculation with a given energy step.
 
-                From the supplied information, the program calculates the NMR frequency at a single energy and displays it on the screen.
+  Creates a tabular output of the NMR frequencies over the given energy range. The energies are displayed from lowest to highest, along with a header describing the isotope, charge states, and other important values. Energies may be input in either order.
 
-`-me E1 E2 DE`  Defines a multiple energy calculation with a given energy step.
+  The default output in this mode is to a file: ISOTOPE+Q.nmr. This may be viewed in the terminal, with a screen width of at least 105 characters required to preserve formatting. Each charge state desired then has a separate file.
 
-                Creates a tabular output of the NMR frequencies over the given energy range. The energies are displayed from lowest to highest, along with a header describing the isotope, charge states, and other important values. Energies may be input in either order.
+  For some energy ranges, the energy values will overshoot the final given energy in the tabular output. This effect is due to retaining the rectangular shape of the table. Since this is, at most, an additional four energies, this "feature" is retained without worry.
 
-                The default output in this mode is to a file: ISOTOPE+Q.nmr. This may be viewed in the terminal, with a screen width of at least 105 characters required to preserve formatting. Each charge state desired then has a separate file.
+###Example
 
-                For some energy ranges, the energy values will overshoot the final given energy in the tabular output. This effect is due to retaining the rectangular shape of the table. Since this is, at most, an additional four energies, this "feature" is retained without worry.
+Alpha-particles with lab energy 7.5 MeV
+```
+nmrfreq.py he4 -sq 2 -se 7.5
+```
+Output
+```
+Isoptope: HE4 (Z = 2, MASS = 4.00260325415 amu), Charge State: +2
 
-Examples:
-
-  Alpha-particles with energies between 7.5 MeV and 11.5 MeV in 50 keV steps
-
-      `nmrfreq.py he4 -sq 2 -me 7.5 11.5 0.05`
-
+    NMR FREQUENCY: 16.495194 MHz
+    BEAM ENERGY:    7.500000 MeV
+```
 
 Creating an `XXconfig.py` file
 ------------------------------
