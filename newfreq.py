@@ -6,13 +6,15 @@ versionNum = "0.9.99"
 versionDate = "2015-XX-XX"
 
 import data.config as config
+import data.wapstra as wapstra
 reload(config)
+reload(wapstra)
 
 from math import sqrt
 import os
 import subprocess as sp
 import sys
-import wapstra
+
 
 #####
 # Creates class to handle all actions
@@ -26,6 +28,7 @@ class NMRcalc(object):
     freq = 0             # NMR frequency
 
     isotope = ["", 0, 0] # Name, Z, Mass
+
 
   def saveIsotope(self, isoName):
     iso = isoName.upper()
@@ -41,8 +44,9 @@ class NMRcalc(object):
       self.isotope[1] = wapstra.table[isoFinal][0]
       self.isotope[2] = wapstra.table[isoFinal][1]
     else:
-      sys.stderr.write("Isotope {0} not found in tablei\n"\
+      sys.stderr.write("Isotope {0} not found in table\n"\
         .format(isoFinal))
+
 
   def saveCharge(self, chargeStart, chargeEnd = 0):
     if self.chechCharge(chargeStart):
@@ -52,6 +56,9 @@ class NMRcalc(object):
       if self.charge[0] > self.charge[1]:
         # exchange two saved values for the charge states
         self.charge[0], self.charge[1] = self.charge[1], self.charge[0]
+    else:
+      self.charge[1] = self.charge[0]
+
 
   def checkCharge(self, charge):
     flag = True
@@ -65,6 +72,7 @@ class NMRcalc(object):
           .format(self.isotope[1]):
     return flag
 
+
   def saveEnergy(self, energyStart, energyEnd = 0, energyStep = 0):
     if self.checkEnergy(energyStart):
       self.energy[0] = energyStart
@@ -76,6 +84,9 @@ class NMRcalc(object):
         sys.stderr.write("Energy step not valid\n")
         sys.stderr.write("Setting energy step to default (1 MeV)\n")
         self.energy[2] = 1.
+    else:
+      self.energy[1] = self.energy[0]
+
 
   def checkEnergy(self, energy):
     flag = True
@@ -84,9 +95,11 @@ class NMRcalc(object):
       flag = False
     return flag
 
+
   def saveFrequency(self, frequency):
     if self.checkFrequency(frequency):
       self.freq = frequency
+
 
   def checkFrequency(self, frequency):
     flag = True
