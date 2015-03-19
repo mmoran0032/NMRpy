@@ -1,22 +1,13 @@
 #!/usr/bin/env python
+# NMRFREQ - NMR Frequency Calculator for the NSL
 
-versionNum = "1.0.0"
-versionDate = "2014-08-04"
 
-#####
-# Sets accelerator environment
-#   module reloaded to ensure that they are recompiled if changed
-#####
+versionNum = "0.9.99"
+versionDate = "2015-XX-XX"
 
-import NMRconfig
-reload(NMRconfig)
-
-config = __import__("{0}config".format(NMRconfig.ACCELERATOR))
+import data.config as config
 reload(config)
 
-#####
-# Load python modules
-#####
 from math import sqrt
 import os
 import subprocess as sp
