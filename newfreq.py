@@ -23,29 +23,43 @@ import sys
 #####
 class NMRcalc(object):
   def __init__(self):
-    charge = [0, 0]      # Starting/ending charge states
-    energy = [0, 0, 0]   # Starting/ending energies and step
-    freq = 0             # NMR frequency
-
-    isotope = ["", 0, 0] # Name, Z, Mass
+    """
+    Initializes flag for what actually will be calculated and container
+    for the ISOTOPE that we care about. Variables holding actual values are
+    Not initialized, since we don't know which ones and how many we need.
+    """
+    self.FLAGsingleCharge = False
+    self.FLAGsingleEnergy = False
+    self.FLAGfrequency = False
+    self.FLAGcanCalculate = False
+    self.isotope = ["", 0, 0] # Name, Z, Mass
 
 
   def saveIsotope(self, isoName):
+    """
+    Takes isotope input (###SYM or ###sym or SYM### or sym###) and converts
+    it to SYM### (required for mass table) and saves it. Prints an error if
+    the final isotope isn't found in the table.
+    """
+    from re import findall
     iso = isoName.upper()
-    if iso[0].isdigit():
-      for i in xrange(1, len(iso)+1, 1):
-        if not iso[:i].isdigit():
-          num = iso[:i-1]
-          sym = iso[i-1:]
-          isoFinal = "{0}{1}".format(sym, num)
-          break
+    isoList = findall("\d+|\D+", iso)
+    if (len(isoList) == 2):
+      if isoList[0].isdigit():
+        num, sym = isoList
+      else:
+        sym, num = isoList
+      isoFinal = "{0}{1}".format(sym, num)
+      print isoFinal
+    else:
+      sys.stderr.write("Given isotope not in accepted format\n")
+
     if isoFinal in wapstra.table:
       self.isotope[0] = isoFinal
       self.isotope[1] = wapstra.table[isoFinal][0]
       self.isotope[2] = wapstra.table[isoFinal][1]
     else:
-      sys.stderr.write("Isotope {0} not found in table\n"\
-        .format(isoFinal))
+      sys.stderr.write("Isotope {0} not found in table\n".format(isoFinal))
 
 
   def saveCharge(self, chargeStart, chargeEnd = 0):
@@ -69,7 +83,7 @@ class NMRcalc(object):
       if charge < 1 or charge > self.isotope[1]:
         flag = False
         sys.stderr.write("Charge state outside physical bounds (1-{0})\n"\
-          .format(self.isotope[1]):
+          .format(self.isotope[1]))
     return flag
 
 
@@ -107,3 +121,11 @@ class NMRcalc(object):
       sys.stderr.write("Must have a positive frequency\n")
       flag = False
     return flag
+
+
+if __name__ == "__main__":
+  n = NMRcalc()
+  testCases = ["HE4", "he4", "4he", "290Na", "22-Ne"]
+  for iso in testCases:
+    print iso,
+    n.saveIsotope(iso)
