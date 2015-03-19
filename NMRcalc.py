@@ -11,8 +11,6 @@ reload(config)
 reload(wapstra)
 
 from math import sqrt
-import os
-import subprocess as sp
 import sys
 
 
@@ -26,12 +24,19 @@ class NMRcalc(object):
     """
     Initializes flag for what actually will be calculated and container
     for the ISOTOPE that we care about. Variables holding actual values are
-    Not initialized, since we don't know which ones and how many we need.
+    initialized to None since we don't know what we need to hold.
+
+    NEW: we're going to restrict to only worrying about a single charge
+    state at a time. Before, it forced tabular and was exceedingly sparse,
+    or we had two full tabular files for energy ranges. No need to worry
+    about that, and is more straightforward for the user.
     """
-    self.FLAGsingleCharge = False
     self.FLAGsingleEnergy = False
     self.FLAGfrequency = False
     self.FLAGcanCalculate = False
+    self.chargeState = 0
+    self.energy = None
+    self.frequency = None
     self.isotope = ["", 0, 0] # Name, Z, Mass
 
 
@@ -50,42 +55,32 @@ class NMRcalc(object):
       else:
         sym, num = isoList
       isoFinal = "{0}{1}".format(sym, num)
-      print isoFinal
+      if isoFinal[0] == "-":
+        isoFinal = isoFinal[1:]
+      self.verifyIsotope(isoFinal)
     else:
-      sys.stderr.write("Given isotope not in accepted format\n")
+      sys.stderr.write("Isotope {0} not in accepted format\n".format(iso))
 
+
+  def verifyIsotope(self, isotope):
     # We know the isotope is in the right format, now grab details
-    if isoFinal in wapstra.table:
-      self.isotope[0] = isoFinal
-      self.isotope[1] = wapstra.table[isoFinal][0]
-      self.isotope[2] = wapstra.table[isoFinal][1]
+    if isotope in wapstra.table:
+      self.isotope[0] = isotope
+      self.isotope[1] = wapstra.table[isotope][0]
+      self.isotope[2] = wapstra.table[isotope][1]
     else:
-      sys.stderr.write("Isotope {0} not found in table\n".format(isoFinal))
+      sys.stderr.write("Isotope {0} not found in table\n".format(isotope))
 
 
-  def saveCharge(self, chargeStart, chargeEnd = 0):
-    if self.chechCharge(chargeStart):
-      self.charge[0] = chargeStart
-    if chargeEnd != 0 and self.checkCharge(chargeEnd):
-      self.charge[1] = chargeEnd
-      if self.charge[0] > self.charge[1]:
-        # exchange two saved values for the charge states
-        self.charge[0], self.charge[1] = self.charge[1], self.charge[0]
-    else:
-      self.charge[1] = self.charge[0]
-
-
-  def checkCharge(self, charge):
-    flag = True
+  def saveChargeState(self, charge):
     if int(charge) != charge:
-      flag = False
       sys.stderr.write("Charge state must be an integer")
     else:
       if charge < 1 or charge > self.isotope[1]:
-        flag = False
         sys.stderr.write("Charge state outside physical bounds (1-{0})\n"\
           .format(self.isotope[1]))
-    return flag
+      else:
+        self.chargeState = charge
 
 
   def saveEnergy(self, energyStart, energyEnd = 0, energyStep = 0):
@@ -126,7 +121,6 @@ class NMRcalc(object):
 
 if __name__ == "__main__":
   n = NMRcalc()
-  testCases = ["HE4", "he4", "4he", "290Na", "22-Ne"]
+  testCases = ["HE4", "he4", "4he", "290Na", "22-Ne", "18O-10"]
   for iso in testCases:
-    print iso,
     n.saveIsotope(iso)
