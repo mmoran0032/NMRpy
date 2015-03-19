@@ -16,12 +16,12 @@ import subprocess as sp
 import sys
 
 
-#####
-# Creates class to handle all actions
-#   does not include actually taking user input, just storage and
-#   manipulation of variables
-#####
 class NMRcalc(object):
+  """
+  Verifies and stores all user data and performs calculation when all
+  required components are in place. Does not handle actually getting user
+  input, which is in a separate driver class.
+  """
   def __init__(self):
     """
     Initializes flag for what actually will be calculated and container
@@ -54,6 +54,7 @@ class NMRcalc(object):
     else:
       sys.stderr.write("Given isotope not in accepted format\n")
 
+    # We know the isotope is in the right format, now grab details
     if isoFinal in wapstra.table:
       self.isotope[0] = isoFinal
       self.isotope[1] = wapstra.table[isoFinal][0]

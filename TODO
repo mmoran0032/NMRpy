@@ -1,3 +1,6 @@
+NEWFREQ BRANCH
+  Use argparse to handle all arguments
+
 IMMEDIATE
   Change tabular output file destination to user/config specified, or home
     if no path specified. Prevents clogging up file space. Maybe default to

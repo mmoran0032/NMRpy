@@ -15,9 +15,6 @@ When calculating, at the very least a single isotope, charge state, and energy/f
 
 Options
 -------
-* `-a, --accelerator` Prints which accelerator environment is currently selected.
-
-* `-c` Changes the environment variables defined in NMRconfig.py. This option can be used in two different ways: restoring the options to their default (FN) with `nmrfreq -c` or setting a new defined (XXconfig.py exits) accelerator with `nmrfreq -c ACCELERATOR`
 
 * `-h, --help` Prints the help screen.
 
