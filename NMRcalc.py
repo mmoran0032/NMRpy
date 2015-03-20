@@ -1,9 +1,6 @@
 #!/usr/bin/env python
-# NMRFREQ - NMR Frequency Calculator for the NSL
+# NMRcalc - data storage and calculator for nmrfreq
 
-
-versionNum = "0.9.99"
-versionDate = "2015-XX-XX"
 
 import data.config as config
 import data.wapstra as wapstra
@@ -31,10 +28,9 @@ class NMRcalc(object):
     or we had two full tabular files for energy ranges. No need to worry
     about that, and is more straightforward for the user.
     """
-    self.FLAGsingleEnergy = False
     self.FLAGfrequency = False
     self.FLAGcanCalculate = False
-    self.chargeState = 0
+    self.chargeState = None
     self.energy = None
     self.frequency = None
     self.isotope = ["", 0, 0] # Name, Z, Mass
@@ -97,6 +93,7 @@ class NMRcalc(object):
   def saveFrequency(self, freq):
     if freq > 0:
       self.frequency = freq
+      self.FLAGfrequency = True
     else:
       sys.stderr.write("Frequency ({0}) must be positive\n".format(freq))
 
