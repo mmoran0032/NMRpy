@@ -73,50 +73,32 @@ class NMRcalc(object):
 
 
   def saveChargeState(self, charge):
-    if int(charge) != charge:
-      sys.stderr.write("Charge state must be an integer")
-    else:
-      if charge < 1 or charge > self.isotope[1]:
+    """
+    Verifies that the charge state is an integer and within the range 1 - Z,
+    then saves the value. Requires the isotope to already be saved.
+    """
+    if int(charge) == charge:
+      if charge > 1 and charge < self.isotope[1]:
+        self.chargeState = charge
+      else:
         sys.stderr.write("Charge state outside physical bounds (1-{0})\n"\
           .format(self.isotope[1]))
-      else:
-        self.chargeState = charge
-
-
-  def saveEnergy(self, energyStart, energyEnd = 0, energyStep = 0):
-    if self.checkEnergy(energyStart):
-      self.energy[0] = energyStart
-    if energyEnd != 0 and self.checkEnergy(energyEnd):
-      self.energy[1] = energyStart
-      if energyStep > 0:
-        self.energy[2] = energyStep
-      else:
-        sys.stderr.write("Energy step not valid\n")
-        sys.stderr.write("Setting energy step to default (1 MeV)\n")
-        self.energy[2] = 1.
     else:
-      self.energy[1] = self.energy[0]
+      sys.stderr.write("Charge state must be an integer")
 
 
-  def checkEnergy(self, energy):
-    flag = True
-    if energy < 0:
-      sys.stderr.write("Must have a positive energy\n")
-      flag = False
-    return flag
+  def saveEnergy(self, energy):
+    if energy > 0:
+      self.energy = energy
+    else:
+      sys.stderr.write("Energy ({0}) must be positive\n".format(energy))
 
 
-  def saveFrequency(self, frequency):
-    if self.checkFrequency(frequency):
-      self.freq = frequency
-
-
-  def checkFrequency(self, frequency):
-    flag = True
-    if frequency <= 0:
-      sys.stderr.write("Must have a positive frequency\n")
-      flag = False
-    return flag
+  def saveFrequency(self, freq):
+    if freq > 0:
+      self.frequency = freq
+    else:
+      sys.stderr.write("Frequency ({0}) must be positive\n".format(freq))
 
 
 if __name__ == "__main__":
