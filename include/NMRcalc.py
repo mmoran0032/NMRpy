@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # NMRcalc - data storage and calculator for nmrfreq
 
 
@@ -6,6 +5,8 @@ import data.config as config
 import data.wapstra as wapstra
 reload(config)
 reload(wapstra)
+
+from Isotope import Isotope
 
 from math import sqrt
 import sys
@@ -19,53 +20,23 @@ class NMRcalc(object):
   """
   def __init__(self):
     """
-    Initializes flag for what actually will be calculated and container
-    for the ISOTOPE that we care about. Variables holding actual values are
-    initialized to None since we don't know what we need to hold.
+    Stores information required for calculation, including the ISOTOPE that
+    we care about. Variables holding actual values are initialized to None
+    since we don't know what we need to hold.
 
     NEW: we're going to restrict to only worrying about a single charge
     state at a time. Before, it forced tabular and was exceedingly sparse,
     or we had two full tabular files for energy ranges. No need to worry
     about that, and is more straightforward for the user.
     """
-    self.FLAGfrequency = False
-    self.FLAGcanCalculate = False
     self.chargeState = None
     self.energy = None
     self.frequency = None
-    self.isotope = ["", 0, 0] # Name, Z, Mass
+    self.isotope = None
 
 
   def saveIsotope(self, isoName):
-    """
-    Takes isotope input (###SYM or ###sym or SYM### or sym###) and converts
-    it to SYM### (required for mass table) and saves it. Prints an error if
-    the final isotope isn't found in the table.
-    """
-    from re import findall
-    iso = isoName.upper()
-    isoList = findall("\d+|\D+", iso)
-    if (len(isoList) == 2):
-      if isoList[0].isdigit():
-        num, sym = isoList
-      else:
-        sym, num = isoList
-      isoFinal = "{0}{1}".format(sym, num)
-      if isoFinal[0] == "-":
-        isoFinal = isoFinal[1:]
-      self.verifyIsotope(isoFinal)
-    else:
-      sys.stderr.write("Isotope {0} not in accepted format\n".format(iso))
-
-
-  def verifyIsotope(self, isotope):
-    # We know the isotope is in the right format, now grab details
-    if isotope in wapstra.table:
-      self.isotope[0] = isotope
-      self.isotope[1] = wapstra.table[isotope][0]
-      self.isotope[2] = wapstra.table[isotope][1]
-    else:
-      sys.stderr.write("Isotope {0} not found in table\n".format(isotope))
+    self.isoName = Isotope(isoName)
 
 
   def saveChargeState(self, charge):

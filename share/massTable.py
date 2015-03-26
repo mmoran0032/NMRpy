@@ -1,3 +1,4 @@
+# Mass table for use in nmrfreq from AWTMass-2003.dat
 table = {
 	'AC206': (89, 206.01450498),
 	'AC207': (89, 207.011949748),
