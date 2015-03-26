@@ -1,4 +1,4 @@
-# NMRdriver - command line interface for nmrfreq
+# Driver - command line interface for nmrfreq
 
 import Isotope
 

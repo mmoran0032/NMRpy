@@ -1,13 +1,6 @@
 # NMRcalc - data storage and calculator for nmrfreq
 
 
-import data.config as config
-import data.wapstra as wapstra
-reload(config)
-reload(wapstra)
-
-from Isotope import Isotope
-
 from math import sqrt
 import sys
 
@@ -18,7 +11,7 @@ class NMRcalc(object):
   required components are in place. Does not handle actually getting user
   input, which is in a separate driver class.
   """
-  def __init__(self):
+  def __init__(self, isotope=None, config=None):
     """
     Stores information required for calculation, including the ISOTOPE that
     we care about. Variables holding actual values are initialized to None
@@ -32,11 +25,8 @@ class NMRcalc(object):
     self.chargeState = None
     self.energy = None
     self.frequency = None
-    self.isotope = None
-
-
-  def saveIsotope(self, isoName):
-    self.isoName = Isotope(isoName)
+    self.isotope = isotope
+    self.config = None
 
 
   def saveChargeState(self, charge):
@@ -71,6 +61,3 @@ class NMRcalc(object):
 
 if __name__ == "__main__":
   n = NMRcalc()
-  testCases = ["HE4", "he4", "4he", "290Na", "22-Ne", "18O-10"]
-  for iso in testCases:
-    n.saveIsotope(iso)

@@ -3,7 +3,7 @@
 
 
 massFile = "AWTMass-2003.dat"
-newFile = "massTable.py"
+newFile = "masstable.py"
 
 
 def openFile(filename):
