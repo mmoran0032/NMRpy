@@ -1,17 +1,11 @@
 NEWFREQ BRANCH
-  Use argparse to handle all arguments
+  Finish work on subclasses
 
-IMMEDIATE
+RELEASE BRANCH
   Change tabular output file destination to user/config specified, or home
     if no path specified. Prevents clogging up file space. Maybe default to
     cwd for ease?
   Change output to 80 character width for Terminal viewing
 
-SOON
-  Update config file calling and structure
-  Clean up wapstra data extraction
-
 EVENTUALLY
-  Change to class based with full error handling
-  Handle cli prompts properly
   Verify python version for more advanced lines of code
