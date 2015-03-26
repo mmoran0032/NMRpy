@@ -3,12 +3,19 @@
 
 
 massFile = "AWTMass-2003.dat"
-newFile = "wapstra.py"
+newFile = "massTable.py"
 
 
-def extractMasses(filename):
+def openFile(filename):
+  try:
+    file = open(filename, "r")
+    return file
+  except IOError as e:
+    print("Error {0} ({2}): {1}".format(e.errno, e.strerror, filename))
+
+
+def extractMasses(file):
   massdict = {}
-  file = open(filename, "r")
 
   for line in file:
     if line[0] == "#":
@@ -22,12 +29,11 @@ def extractMasses(filename):
         for i in xrange(len(line)):
           if line[i].isalpha():
             if line[i] != "x" and line[i] != "IT" and line[i] != "ep":
-              # i-2 -> Z
-              # i-1 -> A
+              # i-2 -> Z, i-1 -> A
               symbol = "%s%s" % (line[i], line[i-1])
               symbol = symbol.upper()
               Z = int(line[i-2])
-              mass = float(mass)/1000000.0 # to get into amu
+              mass = float(mass)/1000000.0  # to get into amu
               # print "{0} {1} {2}".format(symbol, Z, energy)
               massdict[symbol] = (Z, mass)
   file.close()
@@ -45,9 +51,12 @@ def writeToFile(filename, massdict):
 
 
 def main():
-  massDict = extractMasses(massFile)
-  writeToFile(newFile, massDict)
-
+  file = openFile(massFile)
+  try:
+    massDict = extractMasses(file)
+    writeToFile(newFile, massDict)
+  except:
+    pass
 
 if __name__ == "__main__":
   main()
