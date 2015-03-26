@@ -40,8 +40,9 @@ def extractMasses(file):
   return massdict
 
 
-def writeToFile(filename, massdict):
+def writeToFile(filename, massdict, massFile):
   file = open(filename, "w")
+  file.write("# Mass table for use in nmrfreq from {0}\n".format(massFile))
   file.write("table = {\n")
   for key in sorted(massdict.iterkeys()):
     string = "\t'%s': %s,\n" % (key, massdict[key])
@@ -54,7 +55,7 @@ def main():
   file = openFile(massFile)
   try:
     massDict = extractMasses(file)
-    writeToFile(newFile, massDict)
+    writeToFile(newFile, massDict, massFile)
   except:
     pass
 
