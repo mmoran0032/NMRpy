@@ -2,7 +2,6 @@
 
 
 from math import sqrt
-import sys
 
 
 class NMRcalc(object):
@@ -26,7 +25,7 @@ class NMRcalc(object):
     self.energy = None
     self.frequency = None
     self.isotope = isotope
-    self.config = None
+    self.config = config
 
 
   def saveChargeState(self, charge):
@@ -35,28 +34,18 @@ class NMRcalc(object):
     then saves the value. Requires the isotope to already be saved.
     """
     if int(charge) == charge:
-      if charge > 1 and charge < self.isotope[1]:
+      if charge > 1 and charge < self.isotope.getZ():
         self.chargeState = charge
-      else:
-        sys.stderr.write("Charge state outside physical bounds (1-{0})\n"\
-          .format(self.isotope[1]))
-    else:
-      sys.stderr.write("Charge state must be an integer")
 
 
   def saveEnergy(self, energy):
     if energy > 0:
       self.energy = energy
-    else:
-      sys.stderr.write("Energy ({0}) must be positive\n".format(energy))
 
 
   def saveFrequency(self, freq):
     if freq > 0:
       self.frequency = freq
-      self.FLAGfrequency = True
-    else:
-      sys.stderr.write("Frequency ({0}) must be positive\n".format(freq))
 
 
 if __name__ == "__main__":

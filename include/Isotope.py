@@ -68,6 +68,18 @@ class Isotope(object):
     return "{0}{1}".format(symbol, number)
 
 
+  def getMass(self):
+    return self.mass
+
+
+  def getZ(self):
+    return self.Z
+
+
+  def getName(self):
+    return self.name
+
+
 def main():
   # Testing with different isotope names
   i = Isotope("he4")
