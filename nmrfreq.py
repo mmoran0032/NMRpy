@@ -21,6 +21,7 @@ def main():
                     "{0} ({1})".format(versionNum, versionDate))
   D.parseArguments(" ".join(sys.argv[1:]))
   D.createIsotope()
+  print(D.isotope)
 
 
 if __name__ == "__main__":

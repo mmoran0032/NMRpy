@@ -21,8 +21,10 @@ class Isotope(object):
     self.valid = False
     self.masstable = masstable
     self.processName()
-    if self.valid:
-      self.showIsotope()
+
+
+  def __str__(self):
+    return "Isotope: {0.name} (Z = {0.Z}, mass = {0.mass} amu)".format(self)
 
 
   def processName(self):
@@ -35,12 +37,7 @@ class Isotope(object):
     # splits name into symbol and number
     isoList = findall("[A-Z]+|[0-9]+", iso)
     if len(isoList) == 2:
-      if isoList[0].isdigit() and isoList[1].isalpha():
-        num, sym = isoList
-        self.name = self._createName(sym, num)
-      elif isoList[1].isdigit() and isoList[0].isalpha():
-        sym, num = isoList
-        self.name = self._createName(sym, num)
+      self.createName(isoList)
     else:
       print("Isotope {0} not valid, defaulting to H1".format(self.name))
       self.changeName()
@@ -61,17 +58,19 @@ class Isotope(object):
       print("Isotope {0} not found in masstable".format(self.name))
 
 
-  def showIsotope(self):
-    print("Isotope: {0.name} (Z = {0.Z}, mass = {0.mass} amu)".format(self))
-
-
   def changeName(self, newName="H1"):
     self.name = newName
     self.processName()
 
 
-  def _createName(self, symbol, number):
-    return "{0}{1}".format(symbol, number)
+  def createName(self, isoList):
+    if isoList[0].isdigit() and isoList[1].isalpha():
+      number, symbol = isoList
+    elif isoList[1].isdigit() and isoList[0].isalpha():
+      symbol, number = isoList
+    else:
+      symbol, number = "H", "1"
+    self.name = "{0}{1}".format(symbol, number)
 
 
   def getMass(self):
@@ -88,11 +87,8 @@ class Isotope(object):
 
 def main():
   # Testing with different isotope names
-  i = Isotope("he4")
-  i.changeName("97ZR")
-  i.showIsotope()
-  i.changeName("INVALID-NAME-1")
-  i.showIsotope()
+  i = Isotope("H1")
+  print(i)
 
 
 if __name__ == "__main__":
