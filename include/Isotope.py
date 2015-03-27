@@ -10,7 +10,7 @@ class Isotope(object):
   In all cases, if things fail, we default back to a basic definition for
   Hydrogen-1, while informing the user that we're doing that.
   """
-  def __init__(self, name, masstable={"H1": (1, 1.0)}, show=True):
+  def __init__(self, name, masstable={"H1": (1, 1.0)}):
     """
     Creates the isotope. masstable defaults to dummy Hydrogen-1 if no table
     provided to make sure we have some information after starting.
@@ -21,7 +21,7 @@ class Isotope(object):
     self.valid = False
     self.masstable = masstable
     self.processName()
-    if show:
+    if self.valid:
       self.showIsotope()
 
 
