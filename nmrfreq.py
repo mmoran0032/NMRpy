@@ -6,12 +6,21 @@
 versionNum = "0.9.99"
 versionDate = "2015-XX-XX"
 
-import NMRcalc
-import NMRdriver
+import include.Driver as Driver
+import include.Isotope as Isotope
+import include.NMRcalc as NMRcalc
+import share.config as config
+from share.masstable import table
+
+import sys
 
 
 def main():
-  pass
+  D = Driver.Driver(config,
+                    table,
+                    "{0} ({1})".format(versionNum, versionDate))
+  D.parseArguments(" ".join(sys.argv[1:]))
+  D.createIsotope()
 
 
 if __name__ == "__main__":

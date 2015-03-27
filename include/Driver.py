@@ -4,15 +4,17 @@
 import argparse
 from Isotope import Isotope
 from NMRcalc import NMRcalc
+import sys
 
 desc = """NMRFREQ - analyzing magnet frequency utility for the NSL"""
 
 class Driver(object):
-  def __init__(self, isotope=None, config=None, calc=None, masstable=None):
-    self.isotope = isotope
+  def __init__(self, config=None, masstable=None, version=""):
+    self.isotope = None
     self.config = config
-    self.calc = calc
+    self.calc = None
     self.masstable = masstable
+    self.version = version
     self.parser = argparse.ArgumentParser(description=desc)
     self.defineUsage()
 
@@ -20,8 +22,8 @@ class Driver(object):
   def defineUsage(self):
     p = self.parser
     p.add_argument("-v", "--version", action="version",
-                   version="nmrfreq 0.99.999.9999 (date)")
-    p.add_argument("-i", "--iso", type=str, metavar="ISO", default="H1",
+                   version="nmrfreq {0}".format(self.version))
+    p.add_argument("-i", "--iso", type=str, metavar="ISOTOPE", default="H1",
                    help="desired isotope name")
     p.add_argument("-q", "--charge", type=int, default=1,
                    help="selected charge state")
@@ -40,13 +42,23 @@ class Driver(object):
     self.masstable = table
 
 
-  def createCalculator(self, isotope=self.isotope, config=self.config):
+  def createCalculator(self, isotope, config):
     self.calc = NMRCalc(isotope, config)
+
+
+  def parseArguments(self, argstring):
+    arglist = argstring.split()
+    if len(arglist) == 0:
+      self.parser.print_help()
+      sys.exit()
+    else:
+    # namespace stores output of parsing as variables within class Driver
+      self.parser.parse_args(arglist, namespace=Driver)
 
 
 if __name__ == "__main__":
   n = Driver()
-  n.parser.print_help()
-  # namespace stores output of parsing as variables within class Driver
-  n.parser.parse_args("-i He4 -q 2 -e 8.7".split(), namespace=Driver)
-  print(Driver.iso)
+  n.parseArguments("-i He4 -q 2 -e 8.7")
+  n.createMassTable({"HE4": (2, 4)})
+  n.createIsotope()
+  print(n.isotope)
