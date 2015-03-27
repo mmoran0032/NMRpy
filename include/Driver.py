@@ -52,7 +52,7 @@ class Driver(object):
       self.parser.print_help()
       sys.exit()
     else:
-    # namespace stores output of parsing as variables within class Driver
+      # namespace stores output of parsing as variables within class Driver
       self.parser.parse_args(arglist, namespace=Driver)
 
 
