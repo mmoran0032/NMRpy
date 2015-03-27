@@ -18,6 +18,7 @@ class Isotope(object):
     self.name = name
     self.mass = 0
     self.Z = 0
+    self.valid = False
     self.masstable = masstable
     self.processName()
     if show:
@@ -25,6 +26,10 @@ class Isotope(object):
 
 
   def processName(self):
+    """
+    Takes desired isotope name and converts it to SYM### (required for mass
+    table). Defaults to setting the isotope to H1
+    """
     from re import findall
     iso = self.name.upper()
     # splits name into symbol and number
@@ -51,6 +56,7 @@ class Isotope(object):
     if self.name in self.masstable:
       self.mass = self.masstable[self.name][1]
       self.Z = self.masstable[self.name][0]
+      self.valid = True
     else:
       print("Isotope {0} not found in masstable".format(self.name))
 

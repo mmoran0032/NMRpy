@@ -3,14 +3,16 @@
 
 import argparse
 from Isotope import Isotope
+from NMRcalc import NMRcalc
 
 desc = """NMRFREQ - analyzing magnet frequency utility for the NSL"""
 
 class Driver(object):
-  def __init__(self, isotope=None, config=None, calc=None):
+  def __init__(self, isotope=None, config=None, calc=None, masstable=None):
     self.isotope = isotope
     self.config = config
     self.calc = calc
+    self.masstable = masstable
     self.parser = argparse.ArgumentParser(description=desc)
     self.defineUsage()
 
@@ -28,6 +30,18 @@ class Driver(object):
                    help="desired beam energy")
     g.add_argument("-f", "--frequency", type=float, metavar="FREQ",
                    help="desired NMR frequency")
+
+
+  def createIsotope(self):
+    self.isotope = Isotope(self.iso, self.masstable)
+
+
+  def createMassTable(self, table):
+    self.masstable = table
+
+
+  def createCalculator(self, isotope=self.isotope, config=self.config):
+    self.calc = NMRCalc(isotope, config)
 
 
 if __name__ == "__main__":
