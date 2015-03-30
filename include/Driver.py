@@ -29,7 +29,7 @@ class Driver(object):
     p.add_argument("-q", "--charge", type=int, default=1,
                    help="selected charge state")
     g = p.add_mutually_exclusive_group()
-    g.add_argument("-e", "--energy", type=float, nargs="*",
+    g.add_argument("-e", "--energy", type=float,
                    help="desired beam energy")
     g.add_argument("-f", "--frequency", type=float, metavar="FREQ",
                    help="desired NMR frequency")
@@ -55,7 +55,6 @@ class Driver(object):
     else:
       # namespace stores output of parsing as variables within class Driver
       self.parser.parse_args(arglist, namespace=Driver)
-      self.passArgumentsToCalc()
 
 
   def passArgumentsToCalc(self):

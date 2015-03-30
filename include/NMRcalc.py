@@ -34,7 +34,7 @@ class NMRcalc(object):
     then saves the value. Requires the isotope to already be saved.
     """
     if int(charge) == charge:
-      if charge > 1 and charge < self.isotope.getZ():
+      if charge >= 1 and charge <= self.isotope.getZ():
         self.chargeState = charge
 
 
@@ -68,7 +68,9 @@ class NMRcalc(object):
     charge = self.chargeState
     if self.energy is None:
       energy = self.calculateEnergy(self.frequency, charge)
+      frequency = self.frequency
     elif self.frequency is None:
+      energy = self.energy
       frequency = self.calculateFrequency(self.energy, charge)
     print("{0}, Charge State: +{1}\n".format(self.isotope, charge))
     print("\tNMR FREQUENCY: {0:9.6f} MHz".format(frequency))
