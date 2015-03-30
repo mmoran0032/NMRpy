@@ -48,5 +48,30 @@ class NMRcalc(object):
       self.frequency = freq
 
 
+  def calculateEnergy(self, freq, charge):
+    K = self.config.magnetK
+    factor = ((freq * charge) / (K * self.isotope.getMass()))**2
+    energy = (self.isotope.getMass() * self.config.amuToMeV *
+             (sqrt(1 + factor) - 1))
+    return energy
+
+
+  def calculateFrequency(self, energy, charge):
+    K = self.config.magnetK
+    factor = energy / (self.isotope.getMass() * self.config.amuToMeV)
+    freq = (K * (self.isotope.getMass() / charge) *
+           sqrt(factor**2 + 2.0 * factor))
+    return freq
+
+
+  def showResult(self, charge, energy, frequency):
+    if energy is None:
+      energy = self.calculateEnergy(frequency, charge)
+    elif frequency is None:
+      frequency = self.calculateFrequency(energy, charge)
+    print("{0}, Charge State: +{1}\n".format(self.isotope, charge))
+    print("\tNMR FREQUENCY: {0:9.6f} MHz".format(frequency))
+    print("\tBEAM ENERGY:   {0:9.6f} MeV\n".format(energy)))
+
 if __name__ == "__main__":
   n = NMRcalc()
