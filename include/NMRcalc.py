@@ -64,14 +64,16 @@ class NMRcalc(object):
     return freq
 
 
-  def showResult(self, charge, energy, frequency):
-    if energy is None:
-      energy = self.calculateEnergy(frequency, charge)
-    elif frequency is None:
-      frequency = self.calculateFrequency(energy, charge)
+  def showResult(self):
+    charge = self.chargeState
+    if self.energy is None:
+      energy = self.calculateEnergy(self.frequency, charge)
+    elif self.frequency is None:
+      frequency = self.calculateFrequency(self.energy, charge)
     print("{0}, Charge State: +{1}\n".format(self.isotope, charge))
     print("\tNMR FREQUENCY: {0:9.6f} MHz".format(frequency))
-    print("\tBEAM ENERGY:   {0:9.6f} MeV\n".format(energy)))
+    print("\tBEAM ENERGY:   {0:9.6f} MeV\n".format(energy))
+
 
 if __name__ == "__main__":
   n = NMRcalc()

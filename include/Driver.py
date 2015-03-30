@@ -8,6 +8,7 @@ import sys
 
 desc = """NMRFREQ - analyzing magnet frequency utility for the NSL"""
 
+
 class Driver(object):
   def __init__(self, config=None, masstable=None, version=""):
     self.isotope = None
@@ -54,6 +55,21 @@ class Driver(object):
     else:
       # namespace stores output of parsing as variables within class Driver
       self.parser.parse_args(arglist, namespace=Driver)
+      self.passArgumentsToCalc()
+
+
+  def passArgumentsToCalc(self):
+    self.calc = NMRcalc(self.isotope, self.config)
+    self.calc.saveCharge(self.charge)
+    self.calc.saveEnergy(self.energy)
+    self.calc.saveFrequency(self.frequency)
+
+
+  def drive(self, arguments):
+    self.parseArguments(arguments)
+    self.createIsotope()
+    self.passArgumentsToCalc()
+    self.calc.showResult()
 
 
 if __name__ == "__main__":

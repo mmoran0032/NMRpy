@@ -19,9 +19,7 @@ def main():
   D = Driver.Driver(config,
                     table,
                     "{0} ({1})".format(versionNum, versionDate))
-  D.parseArguments(" ".join(sys.argv[1:]))
-  D.createIsotope()
-  print(D.isotope)
+  D.drive(" ".join(sys.argv[1:]))
 
 
 if __name__ == "__main__":
