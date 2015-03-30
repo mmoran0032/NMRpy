@@ -60,7 +60,7 @@ class Driver(object):
 
   def passArgumentsToCalc(self):
     self.calc = NMRcalc(self.isotope, self.config)
-    self.calc.saveCharge(self.charge)
+    self.calc.saveChargeState(self.charge)
     self.calc.saveEnergy(self.energy)
     self.calc.saveFrequency(self.frequency)
 
