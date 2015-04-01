@@ -3,12 +3,10 @@
 
 
 # Version numbering follows Semantic Versioning (http://semver.org/)
-versionNum = "0.9.99"
-versionDate = "2015-XX-XX"
+versionNum = "1.0.0"
+versionDate = "2015-03-31"
 
-import include.Driver as Driver
-import include.Isotope as Isotope
-import include.NMRcalc as NMRcalc
+from include.Driver import Driver
 import share.config as config
 from share.masstable import table
 
@@ -16,7 +14,7 @@ import sys
 
 
 def main():
-  D = Driver.Driver(config,
+  D = Driver(config,
                     table,
                     "{0} ({1})".format(versionNum, versionDate))
   D.drive(" ".join(sys.argv[1:]))
