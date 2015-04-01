@@ -7,20 +7,20 @@ When calculating, the user inputs a combination of isotope, charge state, beam e
 
 The program defaults to selecting Hydrogen-1 and charge state +1 to ease calculations for using proton beams. If no options are present, the help information is printed.
 
-The program also includes a basic isotope lookup (for mass and Z) by only using the isotope tag (-i, --iso).
+The program also includes a basic isotope lookup (for mass and Z) by only using the isotope tag (`-i, `--iso`).
 
 Options
 -------
 
-* `-e ENERGY` Selects an energy to determine an NMR frequency for. Cannot be combined with selecting a frequency.
+* `-e ENERGY, --energy ENERGY` Selects an energy to determine an NMR frequency for. Cannot be combined with selecting a frequency.
 
-* `-f FREQ` Selects a frequency to use when determining the beam energy. Cannot be combined with selecting an energy.
+* `-f FREQ, --frequency FREQ` Selects a frequency to use when determining the beam energy. Cannot be combined with selecting an energy.
 
 * `-h, --help` Prints the help screen.
 
 * `-i, --iso` Selects an isotope. Defaults to Hydrogen-1 (H1) if none selected and at least one other option present.
 
-* `-q CHARGE` Defines the desired charge state for the calculation. If none is given the default is +1.
+* `-q CHARGE, --charge CHARGE` Defines the desired charge state for the calculation. If none is given the default is +1.
 
 * `-v, --version` Prints version number and date of last update.
 
