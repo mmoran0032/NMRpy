@@ -7,7 +7,7 @@ When calculating, the user inputs a combination of isotope, charge state, beam e
 
 The program defaults to selecting Hydrogen-1 and charge state +1 to ease calculations for using proton beams. If no options are present, the help information is printed.
 
-The program also includes a basic isotope lookup (for mass and Z) by only using the isotope tag (`-i, `--iso`).
+The program also includes a basic isotope lookup (for mass and Z) by only using the isotope tag (`-i, --iso`).
 
 Options
 -------
