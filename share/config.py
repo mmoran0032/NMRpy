@@ -6,4 +6,4 @@ amuToMeV = 931.494061
 magnetK = 129.88
 magnetKerror = 0.05
 
-outputDirectory = "~"
+outputDirectory = "./"

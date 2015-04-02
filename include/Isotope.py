@@ -85,11 +85,6 @@ class Isotope(object):
     return self.name
 
 
-def main():
-  # Testing with different isotope names
+if __name__ == "__main__":
   i = Isotope("H1")
   print(i)
-
-
-if __name__ == "__main__":
-  main()

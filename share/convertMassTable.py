@@ -7,11 +7,8 @@ newFile = "masstable.py"
 
 
 def openFile(filename):
-  try:
-    file = open(filename, "r")
-    return file
-  except IOError as e:
-    print("Error {0} ({2}): {1}".format(e.errno, e.strerror, filename))
+  file = open(filename, "r")
+  return file
 
 
 def extractMasses(file):
@@ -53,11 +50,9 @@ def writeToFile(filename, massdict, massFile):
 
 def main():
   file = openFile(massFile)
-  try:
-    massDict = extractMasses(file)
-    writeToFile(newFile, massDict, massFile)
-  except:
-    pass
+  massDict = extractMasses(file)
+  writeToFile(newFile, massDict, massFile)
+
 
 if __name__ == "__main__":
   main()
