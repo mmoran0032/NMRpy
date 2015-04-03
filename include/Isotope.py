@@ -2,19 +2,7 @@
 
 
 class Isotope(object):
-  """
-  From desired isotope name (XXX### or similar), we get values for the
-  charge state and mass of that isotope from our desired mass table
-  dictionary. Name is checked before we try to get the information.
-
-  In all cases, if things fail, we default back to a basic definition for
-  Hydrogen-1, while informing the user that we're doing that.
-  """
   def __init__(self, name, masstable={"H1": (1, 1.0)}):
-    """
-    Creates the isotope. masstable defaults to dummy Hydrogen-1 if no table
-    provided to make sure we have some information after starting.
-    """
     self.name = name
     self.mass = 0
     self.Z = 0
@@ -28,10 +16,6 @@ class Isotope(object):
 
 
   def processName(self):
-    """
-    Takes desired isotope name and converts it to SYM### (required for mass
-    table). Defaults to setting the isotope to H1
-    """
     from re import findall
     iso = self.name.upper()
     # splits name into symbol and number
@@ -46,10 +30,6 @@ class Isotope(object):
 
 
   def fillValues(self):
-    """
-    Takes values from preprocessed masstable (dictionary) and saves them.
-    Requires to already have checked and reformated the isotope.
-    """
     if self.name in self.masstable:
       self.mass = self.masstable[self.name][1]
       self.Z = self.masstable[self.name][0]
