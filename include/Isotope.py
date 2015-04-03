@@ -4,6 +4,7 @@
 class Isotope(object):
   def __init__(self, name, masstable=None):
     self.name = name
+    self.originalName = name
     self.mass = 0
     self.Z = 0
     self.masstable = masstable
@@ -15,9 +16,15 @@ class Isotope(object):
 
 
   def processName(self):
+    try:
+      self.processIsotopeName()
+    except:
+      print("Name {0} not valid".format(self.originalName))
+
+
+  def processIsotopeName(self):
     self.adjustNameForTable()
-    if self.checkNameInTable():
-      self.fillValuesFromTable()
+    self.fillValuesFromTable()
 
 
   def adjustNameForTable(self):
@@ -33,10 +40,6 @@ class Isotope(object):
     elif isoList[1].isdigit() and isoList[0].isalpha():
       symbol, number = isoList
     self.name = "{0}{1}".format(symbol, number)
-
-
-  def checkNameInTable(self):
-    return self.name in self.masstable
 
 
   def fillValuesFromTable(self):
