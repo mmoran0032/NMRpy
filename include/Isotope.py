@@ -15,7 +15,7 @@ class Isotope(object):
 
 
   def processName(self):
-    self.adjustNameforTable()
+    self.adjustNameForTable()
     if self.checkNameInTable():
       self.fillValuesFromTable()
 
@@ -23,7 +23,7 @@ class Isotope(object):
   def adjustNameForTable(self):
     from re import findall
     iso = self.name.upper()
-    isoNameSplit = join(findall("[A-Z]+|[0-9]+", iso))
+    isoNameSplit = findall("[A-Z]+|[0-9]+", iso)
     self.createName(isoNameSplit)
 
 
