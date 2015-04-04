@@ -6,6 +6,13 @@ massFile = "AWTMass-2003.dat"
 newFile = "masstable.py"
 
 
+def main():
+  file = openFileFrom(massFile)
+  massDict = extractMasses(file)
+  file.close()
+  writeToFile(newFile, massDict, massFile)
+
+
 def openFileFrom(filename):
   file = open(filename, "r")
   return file
@@ -17,11 +24,9 @@ def extractMasses(file):
   for line in file:
     line = adjustLine(line)
     if line is not None:
-      print line
       isotope, Z, mass = getValuesFrom(line)
       mass = convertMass(mass)
       massdict[isotope] = (Z, mass)
-  file.close()
   return massdict
 
 
@@ -55,12 +60,6 @@ def writeToFile(filename, massdict, massFile):
     file.write(string)
   file.write("}\n")
   file.close()
-
-
-def main():
-  file = openFileFrom(massFile)
-  massDict = extractMasses(file)
-  writeToFile(newFile, massDict, massFile)
 
 
 if __name__ == "__main__":
