@@ -15,6 +15,8 @@ import sys
 
 def main():
   D = Driver(config, table, "{0} ({1})".format(versionNum, versionDate))
+  if len(sys.argv) == 1:
+    sys.argv.append("-h")
   D.drive(sys.argv[1:])
 
 

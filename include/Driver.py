@@ -36,27 +36,18 @@ class Driver(object):
   def drive(self, arguments):
     self.parseArguments(arguments)
     self.createIsotope()
-    self.passArgumentsToCalc()
-    self.calc.processValues()
+    self.performCalculation()
 
 
   def parseArguments(self, arguments):
-    if len(arguments) == 0:
-      self.parser.print_help()
-      sys.exit()
-    else:
-      # namespace stores output of parsing as variables within class Driver
-      self.parser.parse_args(arguments, namespace=Driver)
+    self.parser.parse_args(arguments, namespace=Driver)
 
 
   def createIsotope(self):
     self.isotope = Isotope(self.isotope, self.masstable)
 
 
-  def createMassTable(self, table):
-    self.masstable = table
-
-
-  def passArgumentsToCalc(self):
+  def performCalculation(self):
     self.calc = NMRcalc(self.isotope, self.config, self.charge,
                         self.energy, self.frequency)
+    self.calc.processValues()
