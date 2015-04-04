@@ -35,16 +35,14 @@ class Driver(object):
                    help="desired NMR frequency")
 
 
-  def createIsotope(self):
-    self.isotope = Isotope(self.iso, self.masstable)
+  def drive(self, arguments):
+    self.parseArguments(arguments)
+    self.createIsotope()
+    self.passArgumentsToCalc()
+    self.calc.processValues()
 
 
-  def createMassTable(self, table):
-    self.masstable = table
-
-
-  def parseArguments(self, argstring):
-    arglist = argstring.split()
+  def parseArguments(self, arguments):
     if len(arglist) == 0:
       self.parser.print_help()
       sys.exit()
@@ -53,21 +51,14 @@ class Driver(object):
       self.parser.parse_args(arglist, namespace=Driver)
 
 
+  def createIsotope(self):
+    self.isotope = Isotope(self.iso, self.masstable)
+
+
+  def createMassTable(self, table):
+    self.masstable = table
+
+
   def passArgumentsToCalc(self):
     self.calc = NMRcalc(self.isotope, self.config, self.charge,
                         self.energy, self.frequency)
-
-
-  def drive(self, arguments):
-    self.parseArguments(arguments)
-    self.createIsotope()
-    self.passArgumentsToCalc()
-    self.calc.processValues()
-
-
-if __name__ == "__main__":
-  n = Driver()
-  n.parseArguments("-i He4 -q 2 -e 8.7")
-  n.createMassTable({"HE4": (2, 4)})
-  n.createIsotope()
-  print(n.isotope)

@@ -15,7 +15,7 @@ import sys
 
 def main():
   D = Driver(config, table, "{0} ({1})".format(versionNum, versionDate))
-  D.drive(" ".join(sys.argv[1:]))
+  D.drive(sys.argv[1:])
 
 
 if __name__ == "__main__":
