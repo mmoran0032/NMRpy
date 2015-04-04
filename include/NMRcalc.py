@@ -5,65 +5,74 @@ from math import sqrt
 
 
 class NMRcalc(object):
-  def __init__(self, isotope=None, config=None):
-    self.chargeState = None
-    self.energy = None
-    self.frequency = None
+  def __init__(self, isotope, config, charge=None, energy=None, freq=None):
     self.isotope = isotope
     self.config = config
+    self.charge = charge
+    self.energy = energy
+    self.frequency = freq
 
 
-  def saveChargeState(self, charge):
-    if int(charge) == charge:
-      if charge >= 1 and charge <= self.isotope.getZ():
-        self.chargeState = charge
+  def processValues(self):
+    if self.valuesAreValid():
+      self.getResult()
+    else:
+      self.getIsotope()
 
 
-  def saveEnergy(self, energy):
-    if energy > 0:
-      self.energy = energy
+  def valuesAreValid(self):
+    return self.chargeStateValid() and self.energyAndFreqValid()
 
 
-  def saveFrequency(self, freq):
-    if freq > 0:
-      self.frequency = freq
+  def chargeStateValid(self):
+    charge = self.charge
+    return charge >= 1 and charge <= self.isotope.getZ()
 
 
-  def calculateEnergy(self, freq, charge):
-    K = self.config.magnetK
-    factor = ((freq * charge) / (K * self.isotope.getMass()))**2
-    energy = (self.isotope.getMass() * self.config.amuToMeV *
-             (sqrt(1 + factor) - 1))
-    return energy
+  def energyAndFreqValid(self):
+    energy = self.energy
+    freq = self.frequency
+    if freq is None and energy is not None:
+      return energy > 0
+    elif freq is not None and energy is None:
+      return freq > 0
 
 
-  def calculateFrequency(self, energy, charge):
-    K = self.config.magnetK
-    factor = energy / (self.isotope.getMass() * self.config.amuToMeV)
-    freq = (K * (self.isotope.getMass() / charge) *
-           sqrt(factor**2 + 2.0 * factor))
-    return freq
+  def getResult(self):
+    self.performCalculation()
+    self.showNMRcalculation()
 
 
   def performCalculation(self):
-    charge = self.chargeState
     if self.energy is None:
-      energy = self.calculateEnergy(self.frequency, charge)
-      frequency = self.frequency
+      self.calculateEnergy()
     elif self.frequency is None:
-      energy = self.energy
-      frequency = self.calculateFrequency(self.energy, charge)
-    print("{0}, Charge State: +{1}\n".format(self.isotope, charge))
-    print("\tNMR FREQUENCY: {0:9.6f} MHz".format(frequency))
-    print("\tBEAM ENERGY:   {0:9.6f} MeV\n".format(energy))
+      self.calculateFrequency()
 
 
-  def showResult(self):
-    if self.energy is None and self.frequency is None:
-      print(self.isotope)
-    else:
-      self.performCalculation()
+  def calculateEnergy(self):
+    K = self.config.magnetK
+    freq = self.frequency
+    charge = self.charge
+    factor = ((freq * charge) / (K * self.isotope.getMass()))**2
+    self.energy = (self.isotope.getMass() * self.config.amuToMeV *
+                  (sqrt(1 + factor) - 1))
 
 
-if __name__ == "__main__":
-  n = NMRcalc()
+  def calculateFrequency(self):
+    K = self.config.magnetK
+    energy = self.energy
+    charge = self.charge
+    factor = energy / (self.isotope.getMass() * self.config.amuToMeV)
+    self.frequency = (K * (self.isotope.getMass() / charge) *
+                     sqrt(factor**2 + 2.0 * factor))
+
+
+  def showNMRcalculation(self):
+    print("{0}, Charge State: +{1}\n".format(self.isotope, self.charge))
+    print("\tNMR FREQUENCY: {0:9.6f} MHz".format(self.frequency))
+    print("\tBEAM ENERGY:   {0:9.6f} MeV\n".format(self.energy))
+
+
+  def getIsotope(self):
+    print(self.isotope)

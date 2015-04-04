@@ -43,10 +43,6 @@ class Driver(object):
     self.masstable = table
 
 
-  def createCalculator(self, isotope, config):
-    self.calc = NMRCalc(isotope, config)
-
-
   def parseArguments(self, argstring):
     arglist = argstring.split()
     if len(arglist) == 0:
@@ -58,17 +54,15 @@ class Driver(object):
 
 
   def passArgumentsToCalc(self):
-    self.calc = NMRcalc(self.isotope, self.config)
-    self.calc.saveChargeState(self.charge)
-    self.calc.saveEnergy(self.energy)
-    self.calc.saveFrequency(self.frequency)
+    self.calc = NMRcalc(self.isotope, self.config, self.charge,
+                        self.energy, self.frequency)
 
 
   def drive(self, arguments):
     self.parseArguments(arguments)
     self.createIsotope()
     self.passArgumentsToCalc()
-    self.calc.showResult()
+    self.calc.processValues()
 
 
 if __name__ == "__main__":
