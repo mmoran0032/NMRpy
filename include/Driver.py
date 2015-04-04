@@ -10,10 +10,8 @@ desc = """NMRFREQ - analyzing magnet frequency utility for the NSL"""
 
 
 class Driver(object):
-  def __init__(self, config=None, masstable=None, version=""):
-    self.isotope = None
+  def __init__(self, config, masstable, version=""):
     self.config = config
-    self.calc = None
     self.masstable = masstable
     self.version = version
     self.parser = argparse.ArgumentParser(description=desc)
@@ -24,7 +22,7 @@ class Driver(object):
     p = self.parser
     p.add_argument("-v", "--version", action="version",
                    version="nmrfreq {0}".format(self.version))
-    p.add_argument("-i", "--iso", type=str, metavar="ISOTOPE", default="H1",
+    p.add_argument("-i", "--isotope", type=str, default="H1",
                    help="desired isotope name")
     p.add_argument("-q", "--charge", type=int, default=1,
                    help="selected charge state")
@@ -43,16 +41,16 @@ class Driver(object):
 
 
   def parseArguments(self, arguments):
-    if len(arglist) == 0:
+    if len(arguments) == 0:
       self.parser.print_help()
       sys.exit()
     else:
       # namespace stores output of parsing as variables within class Driver
-      self.parser.parse_args(arglist, namespace=Driver)
+      self.parser.parse_args(arguments, namespace=Driver)
 
 
   def createIsotope(self):
-    self.isotope = Isotope(self.iso, self.masstable)
+    self.isotope = Isotope(self.isotope, self.masstable)
 
 
   def createMassTable(self, table):
