@@ -6,9 +6,6 @@ from math import sqrt
 
 class NMRcalc(object):
   def __init__(self, isotope=None, config=None):
-    self.chargeState = None
-    self.energy = None
-    self.frequency = None
     self.isotope = isotope
     self.config = config
 
