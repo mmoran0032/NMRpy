@@ -4,7 +4,6 @@
 import argparse
 from Isotope import Isotope
 from NMRcalc import NMRcalc
-import sys
 
 desc = """NMRFREQ - analyzing magnet frequency utility for the NSL"""
 
