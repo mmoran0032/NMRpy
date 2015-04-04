@@ -5,15 +5,12 @@ from math import sqrt
 
 
 class NMRcalc(object):
-  def __init__(self, isotope=None, config=None):
+  def __init__(self, isotope, config, charge=None, energy=None, freq=None):
     self.isotope = isotope
     self.config = config
-
-
-  def storeValues(self, charge=None, energy=None, frequency=None):
     self.charge = charge
     self.energy = energy
-    self.frequency = frequency
+    self.frequency = freq
 
 
   def processValues(self):
