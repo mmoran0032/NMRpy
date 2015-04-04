@@ -6,7 +6,7 @@ massFile = "AWTMass-2003.dat"
 newFile = "masstable.py"
 
 
-def openFile(filename):
+def openFileFrom(filename):
   file = open(filename, "r")
   return file
 
@@ -15,26 +15,35 @@ def extractMasses(file):
   massdict = {}
 
   for line in file:
-    if line[0] == "#":
-      continue
-    else:
-      line = line.strip().split()
-      mass = "%s%s" % (line[-3], line[-2])
-      if mass[-1] == "#":
-        continue
-      else:
-        for i in xrange(len(line)):
-          if line[i].isalpha():
-            if line[i] != "x" and line[i] != "IT" and line[i] != "ep":
-              # i-2 -> Z, i-1 -> A
-              symbol = "%s%s" % (line[i], line[i-1])
-              symbol = symbol.upper()
-              Z = int(line[i-2])
-              mass = float(mass)/1000000.0  # to get into amu
-              # print "{0} {1} {2}".format(symbol, Z, energy)
-              massdict[symbol] = (Z, mass)
+    line = adjustLine(line)
+    if line is not None:
+      print line
+      isotope, Z, mass = getValuesFrom(line)
+      mass = convertMass(mass)
+      massdict[isotope] = (Z, mass)
   file.close()
   return massdict
+
+
+def adjustLine(line):
+  line = line.strip()
+  if line[0] != "#" and line[-1] != "#":
+    line = line[9:].strip()
+    line = line.split()
+    return line
+
+
+def getValuesFrom(splitline):
+  isotope = "{0}{1}".format(splitline[2], splitline[1])
+  isotope = isotope.upper()
+  Z = int(splitline[0])
+  mass = "{0}{1}".format(splitline[-3], splitline[-2])
+  return isotope, Z, mass
+
+
+def convertMass(mass):
+  mass = float(mass)/1000000.0
+  return mass
 
 
 def writeToFile(filename, massdict, massFile):
@@ -49,7 +58,7 @@ def writeToFile(filename, massdict, massFile):
 
 
 def main():
-  file = openFile(massFile)
+  file = openFileFrom(massFile)
   massDict = extractMasses(file)
   writeToFile(newFile, massDict, massFile)
 
