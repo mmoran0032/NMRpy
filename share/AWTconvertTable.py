@@ -7,15 +7,9 @@ newFile = "masstable.py"
 
 
 def main():
-  file = openFileFrom(massFile)
-  massDict = extractMasses(file)
-  file.close()
+  with open(massFile, "rU") as file:
+    massDict = extractMasses(file)
   writeToFile(newFile, massDict, massFile)
-
-
-def openFileFrom(filename):
-  file = open(filename, "r")
-  return file
 
 
 def extractMasses(file):
@@ -52,14 +46,18 @@ def convertMass(mass):
 
 
 def writeToFile(filename, massdict, massFile):
-  file = open(filename, "w")
-  file.write("# Mass table for use in nmrfreq from {0}\n".format(massFile))
-  file.write("table = {\n")
+  with open(filename, "w") as f:
+    f.write("# Mass table for use in nmrfreq from {0}\n".format(massFile))
+    f.write("table = {\n")
+    f.write(createIsotopesString(massdict))
+    f.write("}\n")
+
+
+def createIsotopesString(massdict):
+  string = ""
   for key in sorted(massdict.iterkeys()):
-    string = "\t'%s': %s,\n" % (key, massdict[key])
-    file.write(string)
-  file.write("}\n")
-  file.close()
+    string = "{2}\t'{0}': {1},\n".format(key, massdict[key], string)
+  return string
 
 
 if __name__ == "__main__":
