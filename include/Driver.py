@@ -27,7 +27,7 @@ class Driver(object):
     g = p.add_mutually_exclusive_group()
     g.add_argument("-e", "--energy", type=float, nargs="*",
                    help="desired beam energy")
-    g.add_argument("-f", "--frequency", type=float, metavar="FREQ",
+    g.add_argument("-f", "--freq", type=float,
                    help="desired NMR frequency")
 
   def drive(self, arguments):
@@ -43,8 +43,7 @@ class Driver(object):
 
   def performCalculation(self):
     charge, energy = self.convertValues(self.charge, self.energy)
-    self.calc = NMRcalc(self.isotope, self.config, charge,
-                        energy, self.frequency)
+    self.calc = NMRcalc(self.isotope, self.config, charge, energy, self.freq)
     self.calc.processValues()
 
   def convertValues(self, charge, energy):
