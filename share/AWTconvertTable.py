@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#convertAWT.py - Mass Table Conversion Utility
+# convertAWT.py - Mass Table Conversion Utility
 
 
 massFile = "AWTMass-2003.dat"

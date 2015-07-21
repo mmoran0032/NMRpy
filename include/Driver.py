@@ -16,7 +16,6 @@ class Driver(object):
     self.parser = argparse.ArgumentParser(description=desc)
     self.defineUsage()
 
-
   def defineUsage(self):
     p = self.parser
     p.add_argument("-v", "--version", action="version",
@@ -31,20 +30,16 @@ class Driver(object):
     g.add_argument("-f", "--frequency", type=float, metavar="FREQ",
                    help="desired NMR frequency")
 
-
   def drive(self, arguments):
     self.parseArguments(arguments)
     self.createIsotope()
     self.performCalculation()
 
-
   def parseArguments(self, arguments):
     self.parser.parse_args(arguments, namespace=Driver)
 
-
   def createIsotope(self):
     self.isotope = Isotope(self.isotope, self.masstable)
-
 
   def performCalculation(self):
     self.calc = NMRcalc(self.isotope, self.config, self.charge,
