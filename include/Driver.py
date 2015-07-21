@@ -22,10 +22,10 @@ class Driver(object):
                    version="nmrfreq {0}".format(self.version))
     p.add_argument("-i", "--isotope", type=str, default="H1",
                    help="desired isotope name")
-    p.add_argument("-q", "--charge", type=str, default=1,
+    p.add_argument("-q", "--charge", type=int, nargs="*", default=1,
                    help="selected charge state")
     g = p.add_mutually_exclusive_group()
-    g.add_argument("-e", "--energy", type=str,
+    g.add_argument("-e", "--energy", type=float, nargs="*",
                    help="desired beam energy")
     g.add_argument("-f", "--frequency", type=float, metavar="FREQ",
                    help="desired NMR frequency")
@@ -48,6 +48,6 @@ class Driver(object):
     self.calc.processValues()
 
   def convertValues(self, charge, energy):
-    charge = int(charge)
-    energy = float(energy)
+    charge = charge[0]
+    energy = energy[0]
     return charge, energy
