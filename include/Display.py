@@ -9,7 +9,16 @@ class Display(object):
     self.freqs = freqs
 
   def showSingleCalculation(self):
-    i, q, e, f = self.isotope, self.charges[0], self.energies[0], self.freqs[0]
+    self.showSingle(self.charges[0], self.energies[0][0], self.freqs[0][0])
+
+  def showSingle(self, charge, energy, freq):
     print("""{0}, Charge State: +{1}\n
-    NMR FREQUENCY: {2:9.6f} MHz
-    BEAM ENERGY:   {3:9.6f} MeV\n""".format(i, q, f, e))
+        NMR FREQUENCY: {2:9.6f} MHz
+        BEAM ENERGY:   {3:9.6f} MeV\n"""
+          .format(self.isotope, charge, freq, energy))
+
+  def showMultipleCharge():
+    pass
+
+  def showMultipleEnergy():
+    pass

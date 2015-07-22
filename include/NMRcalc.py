@@ -12,6 +12,22 @@ class NMRcalc(object):
     self.charge = charge
     self.energy = energy
     self.freq = freq
+    self.determineEnergyValues()
+
+  def determineEnergyValues(self):
+    if len(self.energy) == 3:
+      self.createEnergyRange()
+    else:
+      self.energy = [self.energy[0]]
+
+  def createEnergyRange(self):
+    self.energy.sort()
+    step, start, stop = self.energy
+    eList = [start]
+    while eList[-1] < stop:
+      newEnergy = float("{0:.3f}".format(eList[-1] + step))
+      eList.append(newEnergy)
+    self.energy = eList
 
   def processValues(self):
     if self.valuesAreValid():
@@ -36,17 +52,38 @@ class NMRcalc(object):
     self.showCalculation()
 
   def performCalculation(self):
+    if self.energy is None:
+      self.createEnergyList()
+    elif self.freq is None:
+      self.createFreqList()
+
+  def createEnergyList(self):
+    energies = []
+    freqs = []
     for charge in self.charge:
-      if self.energy is None:
-        self.energy = [self.calculateEnergy(f, charge) for f in self.freq]
-      elif self.freq is None:
-        self.freq = [self.calculateFrequency(e, charge) for e in self.energy]
+      eList = [self.calculateEnergy(f, charge) for f in self.freq]
+      energies.append(eList)
+      fList = [f for f in self.freq]
+      freqs.append(fList)
+    self.energy = energies
+    self.freq = freqs
 
   def calculateEnergy(self, freq, charge):
     K = self.config.magnetK
     factor = ((freq * charge) / (K * self.isotope.getMass()))**2
     return (self.isotope.getMass() * self.config.amuToMeV *
             (sqrt(1 + factor) - 1))
+
+  def createFreqList(self):
+    energies = []
+    freqs = []
+    for charge in self.charge:
+      eList = [e for e in self.energy]
+      energies.append(eList)
+      fList = [self.calculateFrequency(e, charge) for e in self.energy]
+      freqs.append(fList)
+    self.energy = energies
+    self.freq = freqs
 
   def calculateFrequency(self, energy, charge):
     K = self.config.magnetK
@@ -56,7 +93,7 @@ class NMRcalc(object):
 
   def showCalculation(self):
     display = Display(self.isotope, self.charge, self.energy, self.freq)
-    if len(self.charge) == 1 and len(self.energy) == 1:
+    if len(self.charge) == 1:
       display.showSingleCalculation()
     else:
       print("show table")
