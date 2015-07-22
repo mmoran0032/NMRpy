@@ -12,6 +12,7 @@ class NMRcalc(object):
     self.charge = charge
     self.energy = energy
     self.freq = freq
+    self.charge = list(set(self.charge))
     self.charge.sort()
     self.determineEnergyValues()
 
