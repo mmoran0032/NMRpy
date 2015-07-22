@@ -17,10 +17,11 @@ class NMRcalc(object):
     self.determineEnergyValues()
 
   def determineEnergyValues(self):
-    if len(self.energy) == 3:
-      self.createEnergyRange()
-    else:
-      self.energy = [self.energy[0]]
+    if self.energy is not None:
+      if len(self.energy) == 3:
+        self.createEnergyRange()
+      else:
+        self.energy = [self.energy[0]]
 
   def createEnergyRange(self):
     self.energy.sort()

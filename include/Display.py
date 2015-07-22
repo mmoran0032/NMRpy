@@ -1,8 +1,11 @@
 # Display - shows results of NMR calculations
 
 
+from share.config import magnetK
+
 blank = "                "
-values = "{0:7.3f}{9.6f}"
+values = "{0:7.3f}{1:9.6f}"
+header = "ENERGY FREQUENCY"
 
 
 class Display(object):
@@ -19,10 +22,10 @@ class Display(object):
     self.showSingleEnergy(charge, energy, freq)
 
   def showSingleEnergy(self, charge, energy, freq):
-    print("""{0}, Charge State: +{1}\n
+    print("""{0}, Charge State: +{1:2d}   K = {4:6.2f}\n
         NMR FREQUENCY: {2:9.6f} MHz
         BEAM ENERGY:   {3:9.6f} MeV\n"""
-          .format(self.isotope, charge, freq, energy))
+          .format(self.isotope, charge, freq, energy, magnetK))
 
   def showMultipleCalculations(self):
     if len(self.charges) == 1:
