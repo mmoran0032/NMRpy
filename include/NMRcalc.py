@@ -2,6 +2,7 @@
 
 
 from math import sqrt
+from Display import Display
 
 
 class NMRcalc(object):
@@ -54,19 +55,11 @@ class NMRcalc(object):
             sqrt(factor**2 + 2.0 * factor))
 
   def showCalculation(self):
+    display = Display(self.isotope, self.charge, self.energy, self.freq)
     if len(self.charge) == 1 and len(self.energy) == 1:
-      self.showSingleCalculation()
+      display.showSingleCalculation()
     else:
       print("show table")
-      self.showTable()
-
-  def showSingleCalculation(self):
-    print("{0}, Charge State: +{1}\n".format(self.isotope, self.charge[0]))
-    print("\tNMR FREQUENCY: {0:9.6f} MHz".format(self.freq[0]))
-    print("\tBEAM ENERGY:   {0:9.6f} MeV\n".format(self.energy[0]))
-
-  def showTable(self):
-    pass
 
   def getIsotope(self):
     print(self.isotope)
