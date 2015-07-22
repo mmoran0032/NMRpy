@@ -22,26 +22,24 @@ class NMRcalc(object):
     return self.chargeStateValid() and self.energyAndFreqValid()
 
   def chargeStateValid(self):
-    for charge in self.charge:
-      return charge >= 1 and charge <= self.isotope.getZ()
+    return all([q >= 1 and q <= self.isotope.getZ() for q in self.charge])
 
   def energyAndFreqValid(self):
     if self.freq is None and self.energy is not None:
-      for energy in self.energy:
-        return energy > 0
+      return all([e > 0 for e in self.energy])
     elif self.freq is not None and self.energy is None:
-      return self.freq > 0
+      return all([f > 0 for f in self.freq])
 
   def getResult(self):
     self.performCalculation()
     self.showCalculation()
 
   def performCalculation(self):
-    charge = self.charge[0]
-    if self.energy is None:
-      self.energy = [self.calculateEnergy(freq, charge) for freq in self.freq]
-    elif self.freq is None:
-      self.freq = [self.calculateFrequency(energy, charge) for energy in self.energy]
+    for charge in self.charge:
+      if self.energy is None:
+        self.energy = [self.calculateEnergy(f, charge) for f in self.freq]
+      elif self.freq is None:
+        self.freq = [self.calculateFrequency(e, charge) for e in self.energy]
 
   def calculateEnergy(self, freq, charge):
     K = self.config.magnetK
@@ -59,6 +57,7 @@ class NMRcalc(object):
     if len(self.charge) == 1 and len(self.energy) == 1:
       self.showSingleCalculation()
     else:
+      print("show table")
       self.showTable()
 
   def showSingleCalculation(self):
