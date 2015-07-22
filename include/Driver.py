@@ -42,8 +42,9 @@ class Driver(object):
     self.isotope = Isotope(self.isotope, self.masstable)
 
   def performCalculation(self):
-    charge, energy = self.convertValues(self.charge, self.energy)
-    self.calc = NMRcalc(self.isotope, self.config, charge, energy, self.freq)
+    self.charge, self.energy = self.convertValues(self.charge, self.energy)
+    self.calc = NMRcalc(self.isotope, self.config, self.charge,
+                        self.energy, self.freq)
     self.calc.processValues()
 
   def convertValues(self, charge, energy):
