@@ -39,33 +39,35 @@ class NMRcalc(object):
 
   def performCalculation(self):
     if self.energy is None:
-      self.energy = self.calculateEnergy()
+      self.energy = self.calculateEnergy(self.frequency, self.charge)
     elif self.frequency is None:
-      self.frequency = self.calculateFrequency()
+      self.frequency = self.calculateFrequency(self.energy, self.charge)
 
-  def calculateEnergy(self):
+  def calculateEnergy(self, freq, charge):
     K = self.config.magnetK
-    freq = self.frequency
-    charge = self.charge
     factor = ((freq * charge) / (K * self.isotope.getMass()))**2
     return (self.isotope.getMass() * self.config.amuToMeV *
             (sqrt(1 + factor) - 1))
 
-  def calculateFrequency(self):
+  def calculateFrequency(self, energy, charge):
     K = self.config.magnetK
-    energy = self.energy
-    charge = self.charge
     factor = energy / (self.isotope.getMass() * self.config.amuToMeV)
     return (K * (self.isotope.getMass() / charge) *
             sqrt(factor**2 + 2.0 * factor))
 
   def showCalculation(self):
-    self.showSingleCalculation()
+    if type(self.charge) is not list:
+      self.showSingleCalculation()
+    else:
+      self.showTable()
 
   def showSingleCalculation(self):
     print("{0}, Charge State: +{1}\n".format(self.isotope, self.charge))
     print("\tNMR FREQUENCY: {0:9.6f} MHz".format(self.frequency))
     print("\tBEAM ENERGY:   {0:9.6f} MeV\n".format(self.energy))
+
+  def showTable(self):
+    pass
 
   def getIsotope(self):
     print(self.isotope)
