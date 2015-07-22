@@ -17,7 +17,7 @@ class Isotope(object):
     try:
       self.processIsotopeName()
     except:
-      print("Name {0} not valid".format(self.originalName))
+      print("Name {0} not found".format(self.originalName))
 
   def processIsotopeName(self):
     self.adjustNameForTable()
