@@ -10,7 +10,7 @@ class NMRcalc(object):
     self.config = config
     self.charge = charge
     self.energy = energy
-    self.frequency = freq
+    self.freq = freq
 
   def processValues(self):
     if self.valuesAreValid():
@@ -22,26 +22,26 @@ class NMRcalc(object):
     return self.chargeStateValid() and self.energyAndFreqValid()
 
   def chargeStateValid(self):
-    charge = self.charge
-    return charge >= 1 and charge <= self.isotope.getZ()
+    for charge in self.charge:
+      return charge >= 1 and charge <= self.isotope.getZ()
 
   def energyAndFreqValid(self):
-    energy = self.energy
-    freq = self.frequency
-    if freq is None and energy is not None:
-      return energy > 0
-    elif freq is not None and energy is None:
-      return freq > 0
+    if self.freq is None and self.energy is not None:
+      for energy in self.energy:
+        return energy > 0
+    elif self.freq is not None and self.energy is None:
+      return self.freq > 0
 
   def getResult(self):
     self.performCalculation()
     self.showCalculation()
 
   def performCalculation(self):
+    charge = self.charge[0]
     if self.energy is None:
-      self.energy = self.calculateEnergy(self.frequency, self.charge)
-    elif self.frequency is None:
-      self.frequency = self.calculateFrequency(self.energy, self.charge)
+      self.energy = [self.calculateEnergy(freq, charge) for freq in self.freq]
+    elif self.freq is None:
+      self.freq = [self.calculateFrequency(energy, charge) for energy in self.energy]
 
   def calculateEnergy(self, freq, charge):
     K = self.config.magnetK
@@ -56,15 +56,15 @@ class NMRcalc(object):
             sqrt(factor**2 + 2.0 * factor))
 
   def showCalculation(self):
-    if type(self.charge) is not list:
+    if len(self.charge) == 1 and len(self.energy) == 1:
       self.showSingleCalculation()
     else:
       self.showTable()
 
   def showSingleCalculation(self):
-    print("{0}, Charge State: +{1}\n".format(self.isotope, self.charge))
-    print("\tNMR FREQUENCY: {0:9.6f} MHz".format(self.frequency))
-    print("\tBEAM ENERGY:   {0:9.6f} MeV\n".format(self.energy))
+    print("{0}, Charge State: +{1}\n".format(self.isotope, self.charge[0]))
+    print("\tNMR FREQUENCY: {0:9.6f} MHz".format(self.freq[0]))
+    print("\tBEAM ENERGY:   {0:9.6f} MeV\n".format(self.energy[0]))
 
   def showTable(self):
     pass
