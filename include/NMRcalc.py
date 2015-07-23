@@ -12,13 +12,16 @@ class NMRcalc(object):
     self.charge = charge
     self.energy = energy
     self.freq = freq
+    self.charge = list(set(self.charge))
+    self.charge.sort()
     self.determineEnergyValues()
 
   def determineEnergyValues(self):
-    if len(self.energy) == 3:
-      self.createEnergyRange()
-    else:
-      self.energy = [self.energy[0]]
+    if self.energy is not None:
+      if len(self.energy) == 3:
+        self.createEnergyRange()
+      else:
+        self.energy = [self.energy[0]]
 
   def createEnergyRange(self):
     self.energy.sort()
@@ -93,10 +96,10 @@ class NMRcalc(object):
 
   def showCalculation(self):
     display = Display(self.isotope, self.charge, self.energy, self.freq)
-    if len(self.charge) == 1:
+    if len(self.charge) == 1 and len(self.energy[0]) == 1:
       display.showSingleCalculation()
     else:
-      print("show table")
+      display.showMultipleCalculations()
 
   def getIsotope(self):
     print(self.isotope)
