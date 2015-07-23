@@ -44,6 +44,10 @@ Options
   range, you supply three values: the starting energy, the ending energy, and
   the size of the energy step you'd like to take.
 
+  *Note: the energy step must be smaller than your starting value. If you are
+  not getting the results you expect for a range calculation, this may be the
+  case.*
+
 * `-f FREQ, --frequency FREQ` Selects a frequency to use when determining the
   beam energy. Cannot be combined with selecting an energy.
 
