@@ -70,7 +70,6 @@ class Display(object):
     return table
 
   def determineNumberOfRows(self, values):
-    print(len(values))
     return len(values)//4 + 1
 
   def createSegment(self, energy, freq, index):
