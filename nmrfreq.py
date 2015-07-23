@@ -9,8 +9,8 @@ from share.masstable import table
 import sys
 
 # Version numbering follows Semantic Versioning (http://semver.org/)
-versionNum = "1.0.4"
-versionDate = "2015-07-21"
+versionNum = "1.1.0"
+versionDate = "2015-07-22"
 
 
 def main():
