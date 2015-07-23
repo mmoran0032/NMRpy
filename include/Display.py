@@ -3,9 +3,12 @@
 
 from share.config import magnetK
 
-blank = "                "
-values = "{0:7.3f}{1:9.6f}"
-header = "ENERGY FREQUENCY"
+# Output optimized for 80-character-width terminal
+header = "\n{0}, Charge State: +{1:<2d}   K = {2:6.2f}\n"
+titles = "  ENERGY   FREQUENCY" * 4
+border = "-" * 80
+values = "{0:8.3f}{1:12.6f}"
+blank = "                    "
 
 
 class Display(object):
@@ -13,6 +16,7 @@ class Display(object):
     self.isotope = isotope
     self.charges = charges
     self.energies = energies
+    self.maxEnergy = self.energies[-1]
     self.freqs = freqs
 
   def showSingleCalculation(self):
@@ -22,14 +26,15 @@ class Display(object):
     self.showSingleEnergy(charge, energy, freq)
 
   def showSingleEnergy(self, charge, energy, freq):
-    print("""{0}, Charge State: +{1:2d}   K = {4:6.2f}\n
-        NMR FREQUENCY: {2:9.6f} MHz
-        BEAM ENERGY:   {3:9.6f} MeV\n"""
-          .format(self.isotope, charge, freq, energy, magnetK))
+    topLine = header.format(self.isotope, charge, magnetK)
+    print("""{0}
+        NMR FREQUENCY: {1:9.6f} MHz
+        BEAM ENERGY:   {2:9.6f} MeV\n"""
+          .format(topLine, freq, energy))
 
   def showMultipleCalculations(self):
     if len(self.charges) == 1:
-      self.showMultipleEnergy(self.charges[0])
+      self.showMultipleEnergy(0)
     else:
       self.showMultipleCharge()
 
@@ -45,5 +50,31 @@ class Display(object):
     charge = self.charges[index]
     energies = self.energies[index]
     freqs = self.freqs[index]
-    print("table of energies")
-    print(charge, energies, freqs)
+    print(self.createTableHeader(charge))
+    print(self.createTableBody(energies, freqs))
+
+  def createTableHeader(self, charge):
+    return "{}\n{}\n{}".format(header.format(self.isotope, charge, magnetK),
+                               titles, border)
+
+  def createTableBody(self, energy, freq):
+    rows = self.determineNumberOfRows(energy)
+    table = ""
+    for i in range(rows):
+      row = ""
+      for j in range(4):
+        index = i + j * rows
+        subRange = self.createSegment(energy, freq, index)
+        row = "{}{}".format(row, subRange)
+      table = "{}{}\n".format(table, row)
+    return table
+
+  def determineNumberOfRows(self, values):
+    print(len(values))
+    return len(values)//4 + 1
+
+  def createSegment(self, energy, freq, index):
+    try:
+      return values.format(energy[index], freq[index])
+    except:
+      return blank

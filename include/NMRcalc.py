@@ -96,7 +96,7 @@ class NMRcalc(object):
 
   def showCalculation(self):
     display = Display(self.isotope, self.charge, self.energy, self.freq)
-    if len(self.charge) == 1:
+    if len(self.charge) == 1 and len(self.energy[0]) == 1:
       display.showSingleCalculation()
     else:
       display.showMultipleCalculations()

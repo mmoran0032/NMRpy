@@ -11,7 +11,7 @@ class Isotope(object):
     self.processName()
 
   def __str__(self):
-    return "Isotope: {0.name} (Z = {0.Z:2d}, mass = {0.mass:12.8f} amu)"\
+    return "Isotope: {0.name} (Z = {0.Z}, mass = {0.mass:.8f} amu)"\
       .format(self)
 
   def processName(self):
