@@ -5,9 +5,9 @@ from share.config import magnetK
 
 # Output optimized for 80-character-width terminal
 header = "\n{0}, Charge State: +{1:<2d}   K = {2:6.2f}\n"
-titles = "  ENERGY   FREQUENCY" * 4
+titles = "  ENERGY  FREQUENCY " * 4
 border = "-" * 80
-values = "{0:8.3f}{1:12.6f}"
+values = "{0:8.3f}{1:11.6f} "
 blank = "                    "
 
 
@@ -70,7 +70,10 @@ class Display(object):
     return table
 
   def determineNumberOfRows(self, values):
-    return len(values)//4 + 1
+    if len(values) > 4:
+      return len(values)//4 + 1
+    else:
+      return 1
 
   def createSegment(self, energy, freq, index):
     try:
