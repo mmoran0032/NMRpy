@@ -70,10 +70,10 @@ class Display(object):
     return table
 
   def determineNumberOfRows(self, values):
-    if len(values) > 4:
+    if len(values) % 4 != 0:
       return len(values)//4 + 1
     else:
-      return 1
+      return len(values)//4
 
   def createSegment(self, energy, freq, index):
     try:
