@@ -4,7 +4,7 @@
 from share.config import magnetK
 
 # Output optimized for 80-character-width terminal
-header = "\n{0}, Charge State: +{1:<2d}   K = {2:6.2f}\n"
+header = "\n{0}, Charge State: +{1:<2d}   K = {2:<6.2f}\n"
 titles = "  ENERGY  FREQUENCY " * 4
 border = "-" * 80
 values = "{0:8.3f}{1:11.6f} "
@@ -16,7 +16,6 @@ class Display(object):
     self.isotope = isotope
     self.charges = charges
     self.energies = energies
-    self.maxEnergy = self.energies[-1]
     self.freqs = freqs
 
   def showSingleCalculation(self):
