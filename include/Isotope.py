@@ -17,8 +17,8 @@ class Isotope(object):
   def processName(self):
     try:
       self.processIsotopeName()
-    except:
-      print("Name {0} not found".format(self.originalName))
+    except KeyError:
+      raise
 
   def processIsotopeName(self):
     self.adjustNameForTable()

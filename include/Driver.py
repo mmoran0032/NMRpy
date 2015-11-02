@@ -32,8 +32,11 @@ class Driver(object):
 
   def drive(self, arguments):
     self.parseArguments(arguments)
-    self.createIsotope()
-    self.performCalculation()
+    try:
+      self.createIsotope()
+      self.performCalculation()
+    except KeyError:
+      print("No matching isotope for {} found".format(self.isotope))
 
   def parseArguments(self, arguments):
     self.parser.parse_args(arguments, namespace=Driver)

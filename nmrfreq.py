@@ -2,11 +2,11 @@
 # nmrfreq - NMR frequency calculator
 
 
+import sys
+
 import share.config as config
 from include.Driver import Driver
 from share.masstable import table
-
-import sys
 
 # Version numbering follows Semantic Versioning (http://semver.org/)
 versionNum = "1.1.2"
