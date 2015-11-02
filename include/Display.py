@@ -26,10 +26,8 @@ class Display(object):
 
   def showSingleEnergy(self, charge, energy, freq):
     topLine = header.format(self.isotope, charge, magnetK)
-    print("""{0}
-        NMR FREQUENCY: {1:9.6f} MHz
-        BEAM ENERGY:   {2:9.6f} MeV\n"""
-          .format(topLine, freq, energy))
+    print("{0}\n    NMR FREQUENCY: {1:10.6f} MHz".format(topLine, freq))
+    print("    BEAM ENERGY:   {0:10.6f} MeV\n".format(energy))
 
   def showMultipleCalculations(self):
     if len(self.charges) == 1:
