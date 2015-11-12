@@ -40,12 +40,3 @@ class Isotope(object):
   def fillValuesFromTable(self):
     self.mass = self.masstable[self.name][1]
     self.Z = self.masstable[self.name][0]
-
-  def getMass(self):
-    return self.mass
-
-  def getZ(self):
-    return self.Z
-
-  def getName(self):
-    return self.name

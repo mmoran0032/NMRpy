@@ -43,7 +43,7 @@ class NMRcalc(object):
     return self.chargeStateValid() and self.energyAndFreqValid()
 
   def chargeStateValid(self):
-    return all([q >= 1 and q <= self.isotope.getZ() for q in self.charge])
+    return all([q >= 1 and q <= self.isotope.Z for q in self.charge])
 
   def energyAndFreqValid(self):
     if self.freq is None and self.energy is not None:
@@ -74,9 +74,8 @@ class NMRcalc(object):
 
   def calculateEnergy(self, freq, charge):
     K = self.config.magnetK
-    factor = ((freq * charge) / (K * self.isotope.getMass()))**2
-    return (self.isotope.getMass() * self.config.amuToMeV *
-            (sqrt(1 + factor) - 1))
+    factor = ((freq * charge) / (K * self.isotope.mass))**2
+    return self.isotope.mass * self.config.amuToMeV * (sqrt(1 + factor) - 1)
 
   def createFreqList(self):
     energies = []
@@ -91,9 +90,8 @@ class NMRcalc(object):
 
   def calculateFrequency(self, energy, charge):
     K = self.config.magnetK
-    factor = energy / (self.isotope.getMass() * self.config.amuToMeV)
-    return (K * (self.isotope.getMass() / charge) *
-            sqrt(factor**2 + 2.0 * factor))
+    factor = energy / (self.isotope.mass * self.config.amuToMeV)
+    return K * (self.isotope.mass / charge) * sqrt(factor**2 + 2.0 * factor)
 
   def showCalculation(self):
     display = Display(self.isotope, self.charge, self.energy, self.freq)
@@ -101,6 +99,3 @@ class NMRcalc(object):
       display.showSingleCalculation()
     else:
       display.showMultipleCalculations()
-
-  def getIsotope(self):
-    print(self.isotope)

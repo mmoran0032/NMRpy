@@ -2,6 +2,7 @@
 
 
 import argparse
+
 from Isotope import Isotope
 from NMRcalc import NMRcalc
 
