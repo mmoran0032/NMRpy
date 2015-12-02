@@ -37,11 +37,17 @@ class NMRcalc(object):
     def processValues(self):
         if self.valuesAreValid():
             self.getResult()
+        elif self.eitherValueValid():
+            print("Both charge state and energy/frequency required")
+            print(self.isotope)
         else:
             print(self.isotope)
 
     def valuesAreValid(self):
         return self.chargeStateValid() and self.energyAndFreqValid()
+
+    def eitherValueValid(self):
+        return self.chargeStateValid() or self.energyAndFreqValid()
 
     def chargeStateValid(self):
         return all([q >= 1 and q <= self.isotope.Z for q in self.charge])

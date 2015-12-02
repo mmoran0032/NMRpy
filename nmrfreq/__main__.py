@@ -14,10 +14,7 @@ __version__ = "1.1.3"  # 2015-11-12
 
 def main():
     D = Driver(config, table, __version__)
-    args = sys.argv
-    if len(args) == 1:
-        args.append("-h")
-    D.drive(args)
+    D.drive()
 
 
 if __name__ == "__main__":
