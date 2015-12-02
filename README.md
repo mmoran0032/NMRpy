@@ -34,6 +34,7 @@ directory (`NMRpy` if cloned) with
 ```bash
 $ python -m nmrfreq [arguments]
 ```
+In the examples below, assume that the package is installed.
 
 
 Options
@@ -68,12 +69,23 @@ Options
   beam energy. Cannot be combined with selecting an energy.
 
 
+Defaults
+--------
+
+Since many working groups use protons, this code makes it easy to get the
+required values with a minimum of typing. For a single proton, you can call
+```
+$ nmrfreq [-e [ENERGY [ENERGY ...]] | -f FREQ]
+```
+to get the energy/frequency output for protons.
+
+
 Examples
 --------
 
 Alpha-particles with lab energy 7.5 MeV
 ```
-$ ./nmrfreq.py -i he4 -q 2 -e 7.5
+$ nmrfreq -i he4 -q 2 -e 7.5
 
 Isotope: HE4 (Z = 2, mass = 4.00260325 amu), Charge State: +2    K = 129.88
 
@@ -81,9 +93,20 @@ Isotope: HE4 (Z = 2, mass = 4.00260325 amu), Charge State: +2    K = 129.88
          BEAM ENERGY:    7.500000 MeV
 ```
 
+Protons for a set of activation measurements
+```
+$ nmrfreq -e 6 9 1
+
+Isotope: H1 (Z = 1, mass = 1.00782503 amu), Charge State: +1    K = 129.88
+
+  ENERGY  FREQUENCY   ENERGY  FREQUENCY   ENERGY  FREQUENCY   ENERGY  FREQUENCY 
+--------------------------------------------------------------------------------
+   6.000  14.822732    7.000  16.014629    8.000  17.124901    9.000  18.168516 
+```
+
 Sulfer-33 over a range of energies
 ```
-$ ./nmrfreq.py -i s33 -q 7 -e 50 60 0.5
+$ nmrfreq -i s33 -q 7 -e 50 60 0.5
 
 Isotope: S33 (Z = 16, mass = 32.97145876 amu), Charge State: +7    K = 129.88
 
