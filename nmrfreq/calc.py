@@ -42,6 +42,9 @@ class NMRcalc(object):
     def processValues(self):
         if self.valuesAreValid():
             self.getResult()
+        elif self.energyAndFreqValid():
+            self.charge = [1]
+            self.getResult()
         else:
             if self.eitherValueValid():
                 print("Both charge and energy/frequency required, or neither")
