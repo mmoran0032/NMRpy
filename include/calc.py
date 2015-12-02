@@ -38,7 +38,7 @@ class NMRcalc(object):
         if self.valuesAreValid():
             self.getResult()
         else:
-            self.getIsotope()
+            print(self.isotope)
 
     def valuesAreValid(self):
         return self.chargeStateValid() and self.energyAndFreqValid()

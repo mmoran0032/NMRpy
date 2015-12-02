@@ -22,7 +22,7 @@ class Driver(object):
         p = self.parser
         p.add_argument("-v", "--version", action="version",
                        version="nmrfreq {0}".format(self.version))
-        p.add_argument("-i", "--isotope", type=str, default="H1",
+        p.add_argument("-i", "--isotope", type=str, nargs=1, default="H1",
                        help="desired isotope name")
         p.add_argument("-q", "--charge", type=int, nargs="*", default=[1],
                        help="selected charge state")
@@ -33,15 +33,12 @@ class Driver(object):
                        help="desired NMR frequency")
 
     def drive(self, arguments):
-        self.parseArguments(arguments)
+        self.parser.parse_args(arguments, namespace=Driver)
         try:
             self.createIsotope()
             self.performCalculation()
         except KeyError:
             print("No matching isotope for {} found".format(self.isotope))
-
-    def parseArguments(self, arguments):
-        self.parser.parse_args(arguments, namespace=Driver)
 
     def createIsotope(self):
         self.isotope = Isotope(self.isotope, self.masstable)

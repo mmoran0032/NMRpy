@@ -9,15 +9,15 @@ import share.config as config
 from share.masstable import table
 
 # Version numbering follows Semantic Versioning (http://semver.org/)
-versionNum = "1.1.3"
-versionDate = "2015-11-12"
+__version__ = "1.1.3"  # 2015-11-12
 
 
 def main():
-    D = Driver(config, table, "{0} ({1})".format(versionNum, versionDate))
-    if len(sys.argv) == 1:
-        sys.argv.append("-h")
-    D.drive(sys.argv[1:])
+    D = Driver(config, table, __version__)
+    args = sys.argv
+    if len(args) == 1:
+        args.append("-h")
+    D.drive(args)
 
 
 if __name__ == "__main__":
