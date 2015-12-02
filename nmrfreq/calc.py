@@ -3,7 +3,7 @@
 
 from math import sqrt
 
-from include.display import Display
+from nmrfreq.display import Display
 
 
 class NMRcalc(object):

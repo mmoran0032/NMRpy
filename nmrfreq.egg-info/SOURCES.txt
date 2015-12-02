@@ -1,0 +1,14 @@
+setup.py
+nmrfreq/__init__.py
+nmrfreq/__main__.py
+nmrfreq/calc.py
+nmrfreq/config.py
+nmrfreq/display.py
+nmrfreq/driver.py
+nmrfreq/isotope.py
+nmrfreq/masstable.py
+nmrfreq.egg-info/PKG-INFO
+nmrfreq.egg-info/SOURCES.txt
+nmrfreq.egg-info/dependency_links.txt
+nmrfreq.egg-info/entry_points.txt
+nmrfreq.egg-info/top_level.txt

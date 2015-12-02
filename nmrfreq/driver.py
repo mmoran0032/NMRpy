@@ -3,8 +3,8 @@
 
 import argparse
 
-from include.isotope import Isotope
-from include.calc import NMRcalc
+from nmrfreq.isotope import Isotope
+from nmrfreq.calc import NMRcalc
 
 desc = """NMRFREQ - analyzing magnet frequency utility for the NSL"""
 

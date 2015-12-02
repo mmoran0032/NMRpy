@@ -1,0 +1,3 @@
+[console_scripts]
+nmrfreq = nmrfreq.main
+

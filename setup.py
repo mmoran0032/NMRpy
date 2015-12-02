@@ -1,23 +1,23 @@
 
 
+import os
 from setuptools import setup
 import sys
 
 
-INSTALL_REQUIRES = (["argparse"] if sys.version_info < (2, 7) else [])
+def getReadme(filename):
+    return open(os.path.join(os.path.dirname(__file__), filename)).read()
 
-def version():
-    with open("nmrfreq.py", "rU") as f:
-        text = [line.strip() for line in f]
-    for line in text:
-        if line.startswith("__version__"):
-             return line.split()[2]
+
+VERSION = "1.1.4"  # 2015-12-02
+INSTALL_REQUIRES = (["argparse"] if sys.version_info < (2, 7) else [])
 
 
 setup(
     name="nmrfreq",
-    version=version(),
+    version=VERSION,
     description="NMR frequency determiner for the NSL",
+    long_description=getReadme("README.md"),
     author="Mike Moran",
     author_email="mmoran9@nd.edu",
     license="MIT",
