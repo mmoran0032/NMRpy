@@ -4,8 +4,8 @@ Analyzing Magnet NMR Utility
 Calculates the NMR frequency for a given isotope with a given charge state at a
 given energy. Designed for use at the Notre Dame Nuclear Structure Laboratory.
 Uses the [Atomic Mass Tables](http://ie.lbl.gov/toimass.html) by Audi, Wapstra,
-and Thibault (Nuc. Phys. A 729 (2003) 337-676). Supports both frequency-from-
-energy and energy-from-frequency calculations.
+and Thibault (Nuc. Phys. A 729 (2003) 337-676). Supports both
+frequency-from-energy and energy-from-frequency calculations.
 
 When calculating, the user inputs a combination of isotope, charge state, beam
 energy, and frequency for the desired output. Depending on the options selected,
