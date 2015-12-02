@@ -22,9 +22,9 @@ class Driver(object):
         p = self.parser
         p.add_argument("-v", "--version", action="version",
                        version="nmrfreq {0}".format(self.version))
-        p.add_argument("-i", "--isotope", type=str, nargs="*", #default="H1",
+        p.add_argument("-i", "--isotope", type=str, nargs=1,
                        help="desired isotope name")
-        p.add_argument("-q", "--charge", type=int, nargs="*", default=[1],
+        p.add_argument("-q", "--charge", type=int, nargs="*",
                        help="selected charge state")
         g = p.add_mutually_exclusive_group()
         g.add_argument("-e", "--energy", type=float, nargs="*",
@@ -34,6 +34,7 @@ class Driver(object):
 
     def drive(self):
         self.parser.parse_args(namespace=Driver)
+        # print(self.isotope, self.charge, self.energy, self.freq)
         try:
             self.createIsotope()
             self.performCalculation()
