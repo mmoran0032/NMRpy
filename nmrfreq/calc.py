@@ -3,7 +3,7 @@
 
 from math import sqrt
 
-from include.display import Display
+from nmrfreq.display import Display
 
 
 class NMRcalc(object):
@@ -14,9 +14,8 @@ class NMRcalc(object):
         self.charge = charge
         self.energy = energy
         self.freq = freq
-        self.charge = list(set(self.charge))
-        self.charge.sort()
         self.determineEnergyValues()
+        self.determineCharges()
 
     def determineEnergyValues(self):
         if self.energy is not None:
@@ -34,23 +33,39 @@ class NMRcalc(object):
             eList.append(newEnergy)
         self.energy = eList
 
+    def determineCharges(self):
+        try:
+            self.charge = list(set(self.charge))
+        except TypeError:
+            pass
+
     def processValues(self):
         if self.valuesAreValid():
             self.getResult()
         else:
-            self.getIsotope()
+            if self.eitherValueValid():
+                print("Both charge and energy/frequency required, or neither")
+            print(self.isotope)
 
     def valuesAreValid(self):
         return self.chargeStateValid() and self.energyAndFreqValid()
 
+    def eitherValueValid(self):
+        return self.chargeStateValid() or self.energyAndFreqValid()
+
     def chargeStateValid(self):
-        return all([q >= 1 and q <= self.isotope.Z for q in self.charge])
+        if self.charge is not None:
+            return all([q >= 1 and q <= self.isotope.Z for q in self.charge])
+        else:
+            return False
 
     def energyAndFreqValid(self):
         if self.freq is None and self.energy is not None:
             return all([e > 0 for e in self.energy])
         elif self.freq is not None and self.energy is None:
             return all([f > 0 for f in self.freq])
+        else:
+            return False
 
     def getResult(self):
         self.performCalculation()

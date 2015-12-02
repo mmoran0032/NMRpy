@@ -20,6 +20,8 @@ class Isotope(object):
             self.processIsotopeName()
         except KeyError:
             raise
+        except IndexError:
+            raise
 
     def processIsotopeName(self):
         self.adjustNameForTable()

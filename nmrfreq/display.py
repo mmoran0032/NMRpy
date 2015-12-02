@@ -1,7 +1,7 @@
 # Display - shows results of NMR calculations
 
 
-from share.config import magnetK
+from nmrfreq.config import magnetK
 
 # Output optimized for 80-character-width terminal
 header = "\n{0}, Charge State: +{1:<2d}   K = {2:<6.2f}\n"

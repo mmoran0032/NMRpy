@@ -1,0 +1,13 @@
+organize project like this:
+
+    NMRpy/
+        setup.py
+        nmrfreq
+        nmrfreqlib/
+            __init__.py
+            __main__.py
+            nmrfreq.py
+            ...etc...
+
+look at how glances does it to get an idea
+

@@ -20,6 +20,22 @@ The program also includes a basic isotope lookup (for mass and Z) by only using
 the isotope tag. All isotopes included are stable or near stability and
 frequently encountered at the Nuclear Science Lab at Notre Dame.
 
+
+Installing
+----------
+
+If desired, you can install this package through the standard
+```bash
+$ python setup.py install [--user]
+```
+where you may also use `python3` and install on a per-user basis if desired. You
+may also run the package as a module with the same arguments from the base
+directory (`NMRpy` if cloned) with
+```bash
+$ python -m nmrfreq [arguments]
+```
+
+
 Options
 -------
 
@@ -50,6 +66,7 @@ Options
 
 * `-f FREQ, --frequency FREQ` Selects a frequency to use when determining the
   beam energy. Cannot be combined with selecting an energy.
+
 
 Examples
 --------
