@@ -2,8 +2,10 @@
 # convertAWT.py - Mass Table Conversion Utility
 
 
+import os
+
 massFile = "AWTMass-2003.dat"
-newFile = "masstable.py"
+newFile = os.path.join("..", "nmrfreq", "masstable.py")
 
 
 def main():
