@@ -3,14 +3,14 @@
 
 from math import sqrt
 
+import nmrfreq.config as config
 from nmrfreq.display import Display
 
 
 class NMRcalc(object):
 
-    def __init__(self, isotope, config, charge=None, energy=None, freq=None):
+    def __init__(self, isotope, charge=None, energy=None, freq=None):
         self.isotope = isotope
-        self.config = config
         self.charge = charge
         self.energy = energy
         self.freq = freq
@@ -92,10 +92,8 @@ class NMRcalc(object):
         self.freq = freqs
 
     def calculateEnergy(self, freq, charge):
-        K = self.config.magnetK
-        factor = ((freq * charge) / (K * self.isotope.mass)) ** 2
-        return self.isotope.mass * \
-            self.config.amuToMeV * (sqrt(1 + factor) - 1)
+        factor = ((freq * charge) / (config.magnetK * self.isotope.mass)) ** 2
+        return self.isotope.mass * config.amuToMeV * (sqrt(1 + factor) - 1)
 
     def createFreqList(self):
         energies = []
@@ -109,9 +107,8 @@ class NMRcalc(object):
         self.freq = freqs
 
     def calculateFrequency(self, energy, charge):
-        K = self.config.magnetK
-        factor = energy / (self.isotope.mass * self.config.amuToMeV)
-        return K * (self.isotope.mass / charge) * \
+        factor = energy / (self.isotope.mass * config.amuToMeV)
+        return config.magnetK * (self.isotope.mass / charge) * \
             sqrt(factor ** 2 + 2.0 * factor)
 
     def showCalculation(self):
