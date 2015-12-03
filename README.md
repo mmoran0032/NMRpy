@@ -26,13 +26,13 @@ Installing
 
 If desired, you can install this package through the standard
 ```bash
-$ python setup.py install [--user]
+$ python3 setup.py install [--user]
 ```
-where you may also use `python3` and install on a per-user basis if desired. You
-may also run the package as a module with the same arguments from the base
-directory (`NMRpy` if cloned) with
+where you may also use `python` for 2.X support and install on a per-user basis
+if desired. You may also run the package as a module with the same arguments
+from the base directory (`NMRpy` if cloned) with
 ```bash
-$ python -m nmrfreq [arguments]
+$ python3 -m nmrfreq [arguments]
 ```
 In the examples below, assume that the package is installed.
 

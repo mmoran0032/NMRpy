@@ -33,7 +33,6 @@ class Driver(object):
 
     def drive(self):
         self.parser.parse_args(namespace=Driver)
-        # print(self.isotope, self.charge, self.energy, self.freq)
         try:
             self.createIsotope()
             self.performCalculation()

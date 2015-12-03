@@ -10,7 +10,8 @@ from nmrfreq.masstable import table
 
 
 def main():
-    D = Driver(table, nmrfreq.__version__)
+    version = "{} ({})".format(nmrfreq.__version__, nmrfreq.__date__)
+    D = Driver(table, version)
     D.drive()
 
 

@@ -11,9 +11,6 @@ def getReadme(filename):
     return open(os.path.join(os.path.dirname(__file__), filename)).read()
 
 
-INSTALL_REQUIRES = (["argparse"] if sys.version_info < (2, 7) else [])
-
-
 setup(
     name="nmrfreq",
     version=nmrfreq.__version__,
@@ -22,7 +19,7 @@ setup(
     long_description=getReadme("README.md"),
     author="Mike Moran",
     author_email="mmoran9@nd.edu",
-    install_requires=INSTALL_REQUIRES,
+    install_requires=(["argparse"] if sys.version_info < (2, 7) else []),
     packages=["nmrfreq"],
     entry_points={"console_scripts": ["nmrfreq = nmrfreq.__main__:main"]}
 )

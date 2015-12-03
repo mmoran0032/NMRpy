@@ -1,5 +1,6 @@
 *.pyc
-*.nmr
-dist
-nmrfreq.egg*
 
+dist/
+build/
+
+nmrfreq.egg*
