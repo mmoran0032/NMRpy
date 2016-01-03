@@ -9,7 +9,7 @@ from nmrfreq.calc import NMRcalc
 desc = """NMRFREQ - analyzing magnet frequency utility for the NSL"""
 
 
-class Driver(object):
+class Driver:
 
     def __init__(self, masstable, version=""):
         self.masstable = masstable

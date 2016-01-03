@@ -11,7 +11,7 @@ values = "{0:8.3f}{1:11.6f} "
 blank = "                    "
 
 
-class Display(object):
+class Display:
 
     def __init__(self, isotope, charges, energies, freqs):
         self.isotope = isotope

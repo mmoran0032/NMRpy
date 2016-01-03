@@ -1,7 +1,7 @@
 # Isotope - Stores information on desired isotope taken from masstable
 
 
-class Isotope(object):
+class Isotope:
 
     def __init__(self, name, masstable=None):
         self.name = name
