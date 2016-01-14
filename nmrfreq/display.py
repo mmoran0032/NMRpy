@@ -26,7 +26,7 @@ class Display:
         self.showSingleEnergy(charge, energy, freq)
 
     def showSingleEnergy(self, charge, energy, freq):
-        topLine = header.format(self.isotope, charge, magnetK)
+        topLine = header.format(self.isotope, charge, config.magnetK)
         print("{0}\n    NMR FREQUENCY: {1:10.6f} MHz".format(topLine, freq))
         print("    BEAM ENERGY:   {0:10.6f} MeV\n".format(energy))
 

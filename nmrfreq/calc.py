@@ -112,9 +112,9 @@ class NMRcalc:
             sqrt(factor ** 2 + 2.0 * factor)
 
     def showCalculation(self):
-        display = display.Display(self.isotope, self.charge,
-                                  self.energy, self.freq)
+        self.display = display.Display(self.isotope, self.charge,
+                                       self.energy, self.freq)
         if len(self.charge) == 1 and len(self.energy[0]) == 1:
-            display.showSingleCalculation()
+            self.display.showSingleCalculation()
         else:
-            display.showMultipleCalculations()
+            self.display.showMultipleCalculations()

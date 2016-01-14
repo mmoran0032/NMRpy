@@ -45,7 +45,7 @@ class Driver:
 
     def createIsotope(self):
         if (self.isotope is None and
-            (self.energy is not None or self.freq is not None)):
+                (self.energy is not None or self.freq is not None)):
             self.isotope = ["H1"]
         self.isotope = self.isotope[0]
         self.isotope = isotope.Isotope(self.isotope, self.masstable)
