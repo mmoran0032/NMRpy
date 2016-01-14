@@ -3,13 +3,13 @@
 
 
 import nmrfreq
-from . import driver
+from .driver import Driver
 from .masstable import table
 
 
 def main():
     version = "{} ({})".format(nmrfreq.__version__, nmrfreq.__date__)
-    D = driver.Driver(table, version)
+    D = Driver(table, version)
     D.drive()
 
 

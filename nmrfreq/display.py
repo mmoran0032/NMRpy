@@ -1,7 +1,7 @@
 # Display - shows results of NMR calculations
 
 
-from . import config
+from .config import magnetK
 
 # Output optimized for 80-character-width terminal
 header = "\n{0}, Charge State: +{1:<2d}   K = {2:<6.2f}\n"
@@ -26,7 +26,7 @@ class Display:
         self.showSingleEnergy(charge, energy, freq)
 
     def showSingleEnergy(self, charge, energy, freq):
-        topLine = header.format(self.isotope, charge, config.magnetK)
+        topLine = header.format(self.isotope, charge, magnetK)
         print("{0}\n    NMR FREQUENCY: {1:10.6f} MHz".format(topLine, freq))
         print("    BEAM ENERGY:   {0:10.6f} MeV\n".format(energy))
 
@@ -53,7 +53,7 @@ class Display:
 
     def createTableHeader(self, charge):
         return "{}\n{}\n{}".format(
-            header.format(self.isotope, charge, config.magnetK),
+            header.format(self.isotope, charge, magnetK),
             titles,
             border)
 

@@ -4,7 +4,7 @@
 from math import sqrt
 
 from . import config
-from . import display
+from .display import Display
 
 
 class NMRcalc:
@@ -112,9 +112,9 @@ class NMRcalc:
             sqrt(factor ** 2 + 2.0 * factor)
 
     def showCalculation(self):
-        self.display = display.Display(self.isotope, self.charge,
+        display = Display(self.isotope, self.charge,
                                        self.energy, self.freq)
         if len(self.charge) == 1 and len(self.energy[0]) == 1:
-            self.display.showSingleCalculation()
+            display.showSingleCalculation()
         else:
-            self.display.showMultipleCalculations()
+            display.showMultipleCalculations()

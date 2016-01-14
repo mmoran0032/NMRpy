@@ -3,8 +3,8 @@
 
 import argparse
 
-from . import isotope
-from . import calc
+from .isotope import Isotope
+from .calc import NMRcalc
 
 desc = """NMRFREQ - analyzing magnet frequency utility for the NSL"""
 
@@ -48,9 +48,9 @@ class Driver:
                 (self.energy is not None or self.freq is not None)):
             self.isotope = ["H1"]
         self.isotope = self.isotope[0]
-        self.isotope = isotope.Isotope(self.isotope, self.masstable)
+        self.isotope = Isotope(self.isotope, self.masstable)
 
     def performCalculation(self):
-        self.calc = calc.NMRcalc(self.isotope, self.charge,
+        self.calc = NMRcalc(self.isotope, self.charge,
                                  self.energy, self.freq)
         self.calc.processValues()
