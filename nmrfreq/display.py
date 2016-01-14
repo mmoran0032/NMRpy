@@ -1,7 +1,7 @@
 # Display - shows results of NMR calculations
 
 
-from nmrfreq.config import magnetK
+from . import config
 
 # Output optimized for 80-character-width terminal
 header = "\n{0}, Charge State: +{1:<2d}   K = {2:<6.2f}\n"
@@ -53,7 +53,7 @@ class Display:
 
     def createTableHeader(self, charge):
         return "{}\n{}\n{}".format(
-            header.format(self.isotope, charge, magnetK),
+            header.format(self.isotope, charge, config.magnetK),
             titles,
             border)
 
