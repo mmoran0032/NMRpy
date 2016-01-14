@@ -7,7 +7,6 @@ from . import config
 from . import display
 
 
-
 class NMRcalc:
 
     def __init__(self, isotope, charge=None, energy=None, freq=None):
