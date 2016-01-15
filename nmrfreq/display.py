@@ -1,7 +1,7 @@
 # Display - shows results of NMR calculations
 
 
-from nmrfreq.config import magnetK
+from .config import magnetK
 
 # Output optimized for 80-character-width terminal
 header = "\n{0}, Charge State: +{1:<2d}   K = {2:<6.2f}\n"
@@ -11,7 +11,7 @@ values = "{0:8.3f}{1:11.6f} "
 blank = "                    "
 
 
-class Display(object):
+class Display:
 
     def __init__(self, isotope, charges, energies, freqs):
         self.isotope = isotope

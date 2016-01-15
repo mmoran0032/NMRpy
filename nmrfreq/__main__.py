@@ -2,11 +2,9 @@
 # nmrfreq - NMR frequency calculator
 
 
-import sys
-
 import nmrfreq
-from nmrfreq.driver import Driver
-from nmrfreq.masstable import table
+from .driver import Driver
+from .masstable import table
 
 
 def main():

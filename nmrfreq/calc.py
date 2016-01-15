@@ -3,11 +3,11 @@
 
 from math import sqrt
 
-import nmrfreq.config as config
-from nmrfreq.display import Display
+from . import config
+from .display import Display
 
 
-class NMRcalc(object):
+class NMRcalc:
 
     def __init__(self, isotope, charge=None, energy=None, freq=None):
         self.isotope = isotope
