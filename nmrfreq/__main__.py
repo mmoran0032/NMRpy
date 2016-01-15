@@ -2,13 +2,13 @@
 # nmrfreq - NMR frequency calculator
 
 
-import nmrfreq
+from . import __version__, __date__
 from .driver import Driver
 from .masstable import table
 
 
 def main():
-    version = "{} ({})".format(nmrfreq.__version__, nmrfreq.__date__)
+    version = "{} ({})".format(__version__, __date__)
     D = Driver(table, version)
     D.drive()
 
