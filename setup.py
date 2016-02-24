@@ -1,8 +1,13 @@
 
 
 import os
-from setuptools import setup
 import sys
+try:
+    from setuptools import setup
+except:
+    print('setuptools not found.')
+    print('Install python[3]-setuptools to install nmrfreq')
+    sys.exit(1)
 
 import nmrfreq
 
