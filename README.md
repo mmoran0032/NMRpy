@@ -29,8 +29,8 @@ If desired, you can install this package through the standard
 $ python3 setup.py install [--user]
 ```
 where you may also use `python` for 2.X support and install on a per-user basis
-if desired. You will need `setuptools` install in your environment. You may also
-run the package as a module with the same arguments from the base directory
+if desired. You will need `setuptools` installed in your environment. You may
+also run the package as a module with the same arguments from the base directory
 (`NMRpy` if cloned) with
 ```bash
 $ python3 -m nmrfreq [arguments]
