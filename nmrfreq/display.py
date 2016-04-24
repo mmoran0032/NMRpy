@@ -52,7 +52,7 @@ class Display:
         print(self.createTableBody(energies, freqs))
 
     def createTableHeader(self, charge):
-        return "{}\n{}\n{}".format(
+        return "{0}\n{1}\n{2}".format(
             header.format(self.isotope, charge, magnetK),
             titles,
             border)
@@ -65,8 +65,8 @@ class Display:
             for j in range(4):
                 index = i + j * rows
                 subRange = self.createSegment(energy, freq, index)
-                row = "{}{}".format(row, subRange)
-            table = "{}{}\n".format(table, row)
+                row = "{0}{1}".format(row, subRange)
+            table = "{0}{1}\n".format(table, row)
         return table
 
     def determineNumberOfRows(self, values):

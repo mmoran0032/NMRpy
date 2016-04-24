@@ -8,7 +8,7 @@ from .masstable import table
 
 
 def main():
-    version = "{} ({})".format(__version__, __date__)
+    version = "{0} ({1})".format(__version__, __date__)
     D = Driver(table, version)
     D.drive()
 

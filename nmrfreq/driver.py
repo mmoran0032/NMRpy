@@ -37,9 +37,9 @@ class Driver:
             self.createIsotope()
             self.performCalculation()
         except KeyError:
-            print("No matching isotope for {} found".format(self.isotope))
+            print("No matching isotope for {0} found".format(self.isotope))
         except IndexError:
-            print("Isotope {} not a valid input".format(self.isotope))
+            print("Isotope {0} not a valid input".format(self.isotope))
         except TypeError:
             self.parser.print_help()
 
