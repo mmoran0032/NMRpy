@@ -69,6 +69,9 @@ Options
 * `-f FREQ, --frequency FREQ` Selects a frequency to use when determining the
   beam energy. Cannot be combined with selecting an energy.
 
+* `-g FIELD, --field FIELD` Selects a field strength in Gauss to use to
+  determine the beam energy. Cannot be combined with selecting an energy.
+
 
 Defaults
 --------
@@ -100,9 +103,9 @@ $ nmrfreq -e 6 9 1
 
 Isotope: H1 (Z = 1, mass = 1.00782503 amu), Charge State: +1    K = 129.88
 
-  ENERGY  FREQUENCY   ENERGY  FREQUENCY   ENERGY  FREQUENCY   ENERGY  FREQUENCY 
+  ENERGY  FREQUENCY   ENERGY  FREQUENCY   ENERGY  FREQUENCY   ENERGY  FREQUENCY
 --------------------------------------------------------------------------------
-   6.000  14.822732    7.000  16.014629    8.000  17.124901    9.000  18.168516 
+   6.000  14.822732    7.000  16.014629    8.000  17.124901    9.000  18.168516
 ```
 
 Sulfer-33 over a range of energies
@@ -111,11 +114,11 @@ $ nmrfreq -i s33 -q 7 -e 50 60 0.5
 
 Isotope: S33 (Z = 16, mass = 32.97145876 amu), Charge State: +7    K = 129.88
 
-  ENERGY  FREQUENCY   ENERGY  FREQUENCY   ENERGY  FREQUENCY   ENERGY  FREQUENCY 
+  ENERGY  FREQUENCY   ENERGY  FREQUENCY   ENERGY  FREQUENCY   ENERGY  FREQUENCY
 --------------------------------------------------------------------------------
-  50.000  34.922069   53.000  35.955347   56.000  36.959847   59.000  37.937853 
-  50.500  35.096387   53.500  36.124697   56.500  37.124631   59.500  38.098423 
-  51.000  35.269847   54.000  36.293259   57.000  37.288689   60.000  38.258321 
+  50.000  34.922069   53.000  35.955347   56.000  36.959847   59.000  37.937853
+  50.500  35.096387   53.500  36.124697   56.500  37.124631   59.500  38.098423
+  51.000  35.269847   54.000  36.293259   57.000  37.288689   60.000  38.258321
   51.500  35.442461   54.500  36.461044   57.500  37.452031                     
   52.000  35.614241   55.000  36.628064   58.000  37.614666                     
   52.500  35.785199   55.500  36.794328   58.500  37.776604

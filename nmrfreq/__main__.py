@@ -8,10 +8,10 @@ from .masstable import table
 
 
 def main():
-    version = "{0} ({1})".format(__version__, __date__)
+    version = '{0} ({1})'.format(__version__, __date__)
     D = Driver(table, version)
     D.drive()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

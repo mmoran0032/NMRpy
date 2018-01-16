@@ -5,14 +5,14 @@
 #         *********************
 #
 #   This is one file out of a series of 3 files published in:
-#       "The Ame2003 atomic mass evaluation (II)"  by G.Audi, A.H.Wapstra and C.Thibault
+#       'The Ame2003 atomic mass evaluation (II)'  by G.Audi, A.H.Wapstra and C.Thibault
 #           Nuclear Physics A729 p. 337-676, December 22, 2003.
 #                       for files : mass.mas03  atomic masses
 #                                   rct1.mas03  react and sep energies,  part 1
 #                                   rct2.mas03  react and sep energies,  part 2
 #
-#   A fourth file  is the "Rounded" version of the atomic mass table (the first file)
-#                                   mass.mas03round  atomic masses "Rounded" version
+#   A fourth file  is the 'Rounded' version of the atomic mass table (the first file)
+#                                   mass.mas03round  atomic masses 'Rounded' version
 #
 #   All files are 3179 lines long with 124 character per line.
 #       Headers are 39 lines long.
@@ -24,9 +24,9 @@
 #   format    :  a1,i3,i5,i5,i5,1x,a3,a4,1x,f13.5,f11.5,f11.3,f9.3,1x,a2,f11.3,f9.3,1x,i3,1x,f12.5,f11.3,1x
 #                cc NZ  N  Z  A    el  o     mass  unc binding unc     B  beta  unc    atomic_mass   unc
 #   Warnings  :  this format is not identical to the one used in Ame1993 and Ame1995
-#                      in particular "Mass Excess" and "Atomic Mass" values are given now, when necessary,
+#                      in particular 'Mass Excess' and 'Atomic Mass' values are given now, when necessary,
 #                      with 5 digits after decimal point.
-#                      also, the "Binding Energy" column is replaced by a "Binding Energy per A" one.
+#                      also, the 'Binding Energy' column is replaced by a 'Binding Energy per A' one.
 #                decimal point is replaced by # for (non-experimental) estimated values.
 #                * in place of value : not calculable
 #

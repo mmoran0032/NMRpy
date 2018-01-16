@@ -4,4 +4,3 @@ dist/
 build/
 
 nmrfreq.egg*
-*.sublime-workspace

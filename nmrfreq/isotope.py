@@ -1,8 +1,6 @@
-# Isotope - Stores information on desired isotope taken from masstable
 
 
 class Isotope:
-
     def __init__(self, name, masstable=None):
         self.name = name
         self.originalName = name
@@ -12,7 +10,7 @@ class Isotope:
         self.processName()
 
     def __str__(self):
-        return ("Isotope: {0.name} (Z = {0.Z}, mass = {0.mass:.8f} amu)"
+        return ('Isotope: {0.name} (Z = {0.Z}, mass = {0.mass:.8f} amu)'
                 .format(self))
 
     def processName(self):
@@ -30,7 +28,7 @@ class Isotope:
     def adjustNameForTable(self):
         from re import findall
         iso = self.name.upper()
-        isoNameSplit = findall("[A-Z]+|[0-9]+", iso)
+        isoNameSplit = findall('[A-Z]+|[0-9]+', iso)
         self.createName(isoNameSplit)
 
     def createName(self, isoList):
@@ -38,7 +36,7 @@ class Isotope:
             number, symbol = isoList
         elif isoList[1].isdigit() and isoList[0].isalpha():
             symbol, number = isoList
-        self.name = "{0}{1}".format(symbol, number)
+        self.name = '{0}{1}'.format(symbol, number)
 
     def fillValuesFromTable(self):
         self.mass = self.masstable[self.name][1]
